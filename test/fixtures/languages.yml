@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  abbreviation: MyString
+  alphabet: MyString
+  macrofamily: MyString
+  family: MyString
+  subfamily: MyString
+  area1: MyString
+  area2: MyString
+  area3: MyString
+  notes: MyText
+  has_gender: false
+  alive: false
+
+two:
+  name: MyString
+  abbreviation: MyString
+  alphabet: MyString
+  macrofamily: MyString
+  family: MyString
+  subfamily: MyString
+  area1: MyString
+  area2: MyString
+  area3: MyString
+  notes: MyText
+  has_gender: false
+  alive: false

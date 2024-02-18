@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  language: one
+  word: one
+  etymology: MyText
+  gender: MyString
+  link: MyString
+  romanization: MyString
+  translation: MyString
+
+two:
+  language: two
+  word: two
+  etymology: MyText
+  gender: MyString
+  link: MyString
+  romanization: MyString
+  translation: MyString
