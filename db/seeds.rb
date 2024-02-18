@@ -181,7 +181,7 @@ Language.create({ name: "Avar", abbreviation: "av", alphabet: "Cyrl", macrofamil
 
 # Northwest Caucasian
 Language.create({ name: "Abaza", abbreviation: "abq", alphabet: "Cyrl", macrofamily: "Northwest Caucasian", family: "Abazgi", subfamily: nil, area1: "Caucasus", area2: nil, area3: "Europe", notes: nil, has_gender: false, alive: true })
-Language.create({ name: "Abkhaz", abbreviation: "ab", alphabet: "Cyrl", macrofamily: "Northwest Caucasian", family: "Abazgi", subfamily: nil, area1: "Caucasus", area2: nil, area3: nil, notes: nil, has_gender: false, alive: true })
+Language.create({ name: "Abkhaz", abbreviation: "ab", alphabet: "Cyrl", macrofamily: "Northwest Caucasian", family: "Abazgi", subfamily: nil, area1: "Caucasus", area2: nil, area3: "Europe", notes: nil, has_gender: false, alive: true })
 Language.create({ name: "Adyge", abbreviation: "ady", alphabet: "Cyrl", macrofamily: "Northwest Caucasian", family: "Circassian", subfamily: nil, area1: "Caucasus", area2: nil, area3: nil, notes: nil, has_gender: false, alive: true })
 Language.create({ name: "Kabardian", abbreviation: "kbd", alphabet: "Cyrl", macrofamily: "Northwest Caucasian", family: "Circassian", subfamily: nil, area1: "Caucasus", area2: nil, area3: nil, notes: nil, has_gender: false, alive: true })
 Language.create({ name: "Ubykh", abbreviation: "uby", alphabet: "Cyrl", macrofamily: "Northwest Caucasian", family: nil, subfamily: "Ubykh", area1: "Caucasus", area2: nil, area3: nil, notes: nil, has_gender: false, alive: false })

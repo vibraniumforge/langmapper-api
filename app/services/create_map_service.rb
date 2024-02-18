@@ -1,5 +1,4 @@
 class CreateMapService
-
   Combo = [
     ["ab", "168d4f"],
     ["ar", "ffffb1"],
@@ -78,13 +77,13 @@ class CreateMapService
     # ["ven", "f28d3c"],
     # vnc is my veneitian. ven is other
     ["xal", "d34d5f"],
-    # 63
+  # 63
   ]
 
   # x = doc.xpath('//*[contains(@style,"fill")]')[0].attributes["style"].children.to_s
   # x.slice(x.index("#)", 11)
 
-  Families_list = ["Tartessian", "Kipchak", "Kipchak-Nogai", "Albanian", "Oghuz", "Finnic", "Etruscan", "Hellenic", "Sami", "Celtic", "Yukaghir", "South", "Armenian", "Koreanic", "Anatolian", "Circassian", "Svan", "Yeniseian", "Indo-Iranian", "Zan", "Viet", "Basque", "Egyptian", "Ainu", "Tocharian", "Kipchak-Bulgar", "Nivkh", "Ugric", "Khmeric", "Kusunda", "Burushkaski", "Karluk", "Balto‑Slavic", "Vasconic", "Sumerian", "Chukotko-Kamchatkan ", "Semitic", "Elamite", "South Central", "Iberian", "Proto-Germanic", "Abkhaz-Abaza", "Proto-Slavic", "Latin", "Proto-Turkic", "Proto-Baltic", "Ancient Greek"] 
+  Families_list = ["Tartessian", "Kipchak", "Kipchak-Nogai", "Albanian", "Oghuz", "Finnic", "Etruscan", "Hellenic", "Sami", "Celtic", "Yukaghir", "South", "Armenian", "Koreanic", "Anatolian", "Circassian", "Svan", "Yeniseian", "Indo-Iranian", "Zan", "Viet", "Basque", "Egyptian", "Ainu", "Tocharian", "Kipchak-Bulgar", "Nivkh", "Ugric", "Khmeric", "Kusunda", "Burushkaski", "Karluk", "Balto-Slavic", "Vasconic", "Sumerian", "Chukotko-Kamchatkan ", "Semitic", "Elamite", "South Central", "Iberian", "Proto-Germanic", "Abkhaz-Abaza", "Proto-Slavic", "Latin", "Proto-Turkic", "Proto-Baltic", "Ancient Greek"]
   # "Proto-Italic"
 
   # # The $___ from my_europe_template.svg
@@ -103,11 +102,11 @@ class CreateMapService
     # => ["ar", "mt", ...]
     current_languages = []
 
-    # open the selected blank map, read it, and get the $langs from it. 
+    # open the selected blank map, read it, and get the $langs from it.
     # Not hardcoded like before in My_europe_svg.
     map_file = File.open("#{Rails.root.to_s}/public/my_europe_template.svg")
     map_code = map_file.read
-    map_languages = map_code.scan(/[$][a-z]{2,3}/mi).sort.map{|x| x.gsub(/[$]/i, "")}
+    map_languages = map_code.scan(/[$][a-z]{2,3}/mi).sort.map { |x| x.gsub(/[$]/i, "") }
     map_file.close
 
     # clean the result data for appending
@@ -126,7 +125,7 @@ class CreateMapService
     # languages that ARE on the map, but NOT in the reults
     unused_map_languages = map_languages - current_languages
 
-    # change the "$__" to "" to hide missing info.
+    # change the "$__" to "" to hide unused/missing lang info.
     for unused_language in unused_map_languages
       map_code = map_code.sub("$" + unused_language, "")
     end
@@ -150,7 +149,7 @@ class CreateMapService
 
     map_file = File.open("#{Rails.root.to_s}/public/my_europe_template.svg")
     map_code = map_file.read
-    map_languages = map_code.scan(/[$][a-z]{2,3}/mi).sort.map{|x| x.gsub(/[$]/i, "")}
+    map_languages = map_code.scan(/[$][a-z]{2,3}/mi).sort.map { |x| x.gsub(/[$]/i, "") }
     map_file.close
 
     search_results.each do |result|
@@ -165,13 +164,13 @@ class CreateMapService
         next
       end
 
-      # handle romanization 
+      # handle romanization
       edited_result = romanization_helper(result)[0].to_h
 
       # clean the gender text
       # another way
       # .gsub(160.chr("UTF-8"), 32.chr("UTF-8"))
-      edited_result[:gender] = result.gender.sub(/\302\240/, " ") 
+      edited_result[:gender] = result.gender.sub(/\302\240/, " ")
 
       result_array << edited_result
       current_languages << result.abbreviation
@@ -179,8 +178,8 @@ class CreateMapService
 
     # get the genders of French and Italian.
     # they are the base color to remove missing regional languages
-    italian_index = result_array.find_index{|x| x[:abbreviation] == "it" }
-    french_index = result_array.find_index{|x| x[:abbreviation] == "fr" }
+    italian_index = result_array.find_index { |x| x[:abbreviation] == "it" }
+    french_index = result_array.find_index { |x| x[:abbreviation] == "fr" }
     italian_gender = !italian_index.nil? ? result_array[italian_index][:gender] : nil
     french_gender = !french_index.nil? ? result_array[french_index][:gender] : nil
 
@@ -196,15 +195,15 @@ class CreateMapService
 
       # color the missing regional languages to their national ones
       if ["pms", "lij", "vnc", "nap", "scn", "sc"].include?(unused_language) && !italian_gender.nil?
-        map_code = map_code.gsub("#" + color_from_map, "#" + gender_color_finder(italian_gender) )
-      elsif ["oc", "co", "br"].include?(unused_language) && !french_gender.nil? 
-        map_code = map_code.gsub("#" + color_from_map, "#" + gender_color_finder(french_gender) )
+        map_code = map_code.gsub("#" + color_from_map, "#" + gender_color_finder(italian_gender))
+      elsif ["oc", "co", "br"].include?(unused_language) && !french_gender.nil?
+        map_code = map_code.gsub("#" + color_from_map, "#" + gender_color_finder(french_gender))
       else
-        map_code = map_code.gsub("#" + color_from_map, "#" + "ffffff" )
+        map_code = map_code.gsub("#" + color_from_map, "#" + "ffffff")
       end
     end
 
-    # change "$__" to result translation, 
+    # change "$__" to result translation,
     # change the color to the right color
     for result in result_array
       map_code = map_code.sub("$" + result[:abbreviation], result[:translation])
@@ -223,13 +222,12 @@ class CreateMapService
     end
 
     map_file.close
-    
+
     send_map(map_code)
   end
 
   # pick the right color for the matching gender
   def self.gender_color_finder(gender)
-  
     gender_color = ""
     case gender
     # when nil
@@ -286,5 +284,4 @@ class CreateMapService
       [abbreviation: "#{result.abbreviation}", translation: "#{result.translation} - #{result.romanization}"]
     end
   end
-
 end
