@@ -13,7 +13,6 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-
       resources :languages, only: [:index, :show, :new, :create, :edit, :update, :destroy]
       # USER: index, show
       # no user ability to create or edit a language.
@@ -50,8 +49,8 @@ Rails.application.routes.draw do
 
       # create images
       get "/translations/search/all_translations_by_area_img/:area/:word", to: "translations#find_all_translations_by_area_img"
-      get "/translations/search/all_etymologies_by_area_img/:area/:word", to: "translations#find_all_etymologies_by_area_img"
       get "/translations/search/all_genders_by_area_img/:area/:word", to: "translations#find_all_genders_by_area_img"
+      get "/translations/search/all_etymologies_by_area_img/:area/:word", to: "translations#find_all_etymologies_by_area_img"
 
       # below is the way to show ONLY what is on the first Europe map
       get "/translations/search/area_europe_map/:area/:word", to: "translations#find_all_translations_by_area_europe_map"
@@ -84,7 +83,6 @@ Rails.application.routes.draw do
       get "/languages/get/languages_count", to: "languages#languages_count"
       get "/translations/get/translations_count", to: "translations#translations_count"
       get "/words/get/words_count", to: "words#words_count"
-
     end
   end
 end
