@@ -344,6 +344,29 @@ class CreateEtymologyMapService
     unused_search_results = (map_languages - search_results_lang_array).sort
     unused_map_languages2 = (search_results_lang_array - map_languages).sort
 
+    send_map(map_code)
+  end
+
+  def self.send_map(map_code)
+    FileUtils.copy_entry("public/my_europe_template.svg", "public/my_europe_template_copy.svg", preserve = false, dereference = false, remove_destination = true)
+    the_new_map = open("public/my_europe_template_copy.svg", "w")
+    the_new_map.write(map_code)
+    # the_new_map.close()
+    the_new_map
+    # send_file the_new_map, disposition: :inline
+  end
+
+  # Appends romanization if not the same as translation
+  # example [nl, water], ["uk", "мідь - midʹ"]
+  def self.romanization_helper(result)
+    if result.translation == result.romanization
+      [abbreviation: "#{result.abbreviation}", translation: "#{result.translation}"]
+    else
+      [abbreviation: "#{result.abbreviation}", translation: "#{result.translation} - #{result.romanization}"]
+    end
+  end
+
+  def self.create_logs
     puts "\n"
     puts "#{search_results.length} matching languages in the DB for the word: #{word.upcase} in: #{area}"
     puts "#{map_languages.length} languages on the map"
@@ -365,26 +388,5 @@ class CreateEtymologyMapService
     puts "\n"
     puts "computed in #{Time.now - t1} seconds."
     puts "\n"
-
-    send_map(map_code)
-  end
-
-  def self.send_map(map_code)
-    FileUtils.copy_entry("public/my_europe_template.svg", "public/my_europe_template_copy.svg", preserve = false, dereference = false, remove_destination = true)
-    the_new_map = open("public/my_europe_template_copy.svg", "w")
-    the_new_map.write(map_code)
-    # the_new_map.close()
-    the_new_map
-    # send_file the_new_map, disposition: :inline
-  end
-
-  # Appends romanization if not the same as translation
-  # example [nl, water], ["uk", "мідь - midʹ"]
-  def self.romanization_helper(result)
-    if result.translation == result.romanization
-      [abbreviation: "#{result.abbreviation}", translation: "#{result.translation}"]
-    else
-      [abbreviation: "#{result.abbreviation}", translation: "#{result.translation} - #{result.romanization}"]
-    end
   end
 end
