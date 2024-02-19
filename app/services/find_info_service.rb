@@ -65,7 +65,8 @@ class FindInfoService
     # Update the Word with that info
 
     definition = page.css("table.translations")[0].attributes["data-gloss"].value
-    word_id = Word.find_by({ word_name: chosen_word }).id
+    # word_id = Word.find_by({ word_name: chosen_word }).id
+    word_id = Word.find_or_create_by(word_name: chosen_word).id
     @word = Word.find(word_id)
     @word.update({ definition: definition })
 
