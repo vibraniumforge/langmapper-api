@@ -177,7 +177,7 @@ Language.create({ name: "Laz", abbreviation: "lzz", alphabet: "Geor", macrofamil
 Language.create({ name: "Svan", abbreviation: "sva", alphabet: "Geor", macrofamily: "Kartvelian", family: "Svan", subfamily: nil, area1: "Anatolia", area2: "Caucasus", area3: nil, notes: nil, has_gender: false, alive: true })
 
 # Northeast Caucasian
-Language.create({ name: "Avar", abbreviation: "av", alphabet: "Cyrl", macrofamily: "Northeast Caucasian", family: nil, subfamily: nil, area1: "Caucasus", area2: nil, area3: nil, notes: nil, has_gender: false, alive: true })
+Language.create({ name: "Avar", abbreviation: "av", alphabet: "Cyrl", macrofamily: "Northeast Caucasian", family: "Avar–Andic", subfamily: nil, area1: "Caucasus", area2: nil, area3: nil, notes: nil, has_gender: false, alive: true })
 
 # Northwest Caucasian
 Language.create({ name: "Abaza", abbreviation: "abq", alphabet: "Cyrl", macrofamily: "Northwest Caucasian", family: "Abazgi", subfamily: nil, area1: "Caucasus", area2: nil, area3: "Europe", notes: nil, has_gender: false, alive: true })
