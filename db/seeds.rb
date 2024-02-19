@@ -12,7 +12,7 @@ Language.create({ name: "English", abbreviation: "en", alphabet: "Latn", macrofa
 Language.create({ name: "Scots", abbreviation: "sco", alphabet: "Latn", macrofamily: "Indo-European", family: "Germanic", subfamily: "West Germanic", area1: "Europe", area2: "Western Europe", area3: "British Isles", notes: "a.k.a. Lowland Scots", has_gender: false, alive: true })
 
 Language.create({ name: "Dutch", abbreviation: "nl", alphabet: "Latn", macrofamily: "Indo-European", family: "Germanic", subfamily: "West Germanic", area1: "Europe", area2: "Central Europe", area3: nil, notes: nil, has_gender: true, alive: true })
-Language.create({ name: "Afrikaans", abbreviation: "af", alphabet: "Latn", macrofamily: "Indo-European", family: "Germanic", subfamily: "West Germanic", area1: "Europe", area2: "Western Europe", area3: nil, notes: nil, has_gender: false,  alive: true })
+Language.create({ name: "Afrikaans", abbreviation: "af", alphabet: "Latn", macrofamily: "Indo-European", family: "Germanic", subfamily: "West Germanic", area1: "Europe", area2: "Western Europe", area3: nil, notes: nil, has_gender: false, alive: true })
 Language.create({ name: "West Frisian", abbreviation: "fy", alphabet: "Latn", macrofamily: "Indo-European", family: "Germanic", subfamily: "West Germanic", area1: "Europe", area2: "Central Europe", area3: nil, notes: "Friesland, NL", has_gender: true, alive: true })
 Language.create({ name: "North Frisian", abbreviation: "frr", alphabet: "Latn", macrofamily: "Indo-European", family: "Germanic", subfamily: "West Germanic", area1: "Europe", area2: "Central Europe", area3: "Germany", notes: "Nordfriesland, DE", has_gender: true, alive: true })
 Language.create({ name: "Saterland Frisian", abbreviation: "stq", alphabet: "Latn", macrofamily: "Indo-European", family: "Germanic", subfamily: "West Germanic", area1: "Europe", area2: "Central Europe", area3: "Germany", notes: "Saxony, DE", has_gender: true, alive: true })
@@ -182,7 +182,7 @@ Language.create({ name: "Avar", abbreviation: "av", alphabet: "Cyrl", macrofamil
 # Northwest Caucasian
 Language.create({ name: "Abaza", abbreviation: "abq", alphabet: "Cyrl", macrofamily: "Northwest Caucasian", family: "Abazgi", subfamily: nil, area1: "Caucasus", area2: nil, area3: "Europe", notes: nil, has_gender: false, alive: true })
 Language.create({ name: "Abkhaz", abbreviation: "ab", alphabet: "Cyrl", macrofamily: "Northwest Caucasian", family: "Abazgi", subfamily: nil, area1: "Caucasus", area2: nil, area3: "Europe", notes: nil, has_gender: false, alive: true })
-Language.create({ name: "Adyge", abbreviation: "ady", alphabet: "Cyrl", macrofamily: "Northwest Caucasian", family: "Circassian", subfamily: nil, area1: "Caucasus", area2: nil, area3: nil, notes: nil, has_gender: false, alive: true })
+Language.create({ name: "Adyghe", abbreviation: "ady", alphabet: "Cyrl", macrofamily: "Northwest Caucasian", family: "Circassian", subfamily: nil, area1: "Caucasus", area2: nil, area3: nil, notes: nil, has_gender: false, alive: true })
 Language.create({ name: "Kabardian", abbreviation: "kbd", alphabet: "Cyrl", macrofamily: "Northwest Caucasian", family: "Circassian", subfamily: nil, area1: "Caucasus", area2: nil, area3: nil, notes: nil, has_gender: false, alive: true })
 Language.create({ name: "Ubykh", abbreviation: "uby", alphabet: "Cyrl", macrofamily: "Northwest Caucasian", family: nil, subfamily: "Ubykh", area1: "Caucasus", area2: nil, area3: nil, notes: nil, has_gender: false, alive: false })
 
