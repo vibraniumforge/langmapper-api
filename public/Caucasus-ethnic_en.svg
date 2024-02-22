@@ -26,14 +26,14 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="2.8622862"
-     inkscape:cx="225.16965"
-     inkscape:cy="437.23789"
+     inkscape:cx="549.38601"
+     inkscape:cy="428.15425"
      inkscape:window-width="1920"
      inkscape:window-height="938"
      inkscape:window-x="1440"
      inkscape:window-y="25"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg2" />
+     inkscape:current-layer="layer10" />
   <metadata
      id="metadata662">
     <rdf:RDF>
@@ -598,13 +598,13 @@
        y="570.14752"
        id="tspan2306">10</tspan></text>
   <text
-     x="826.7514"
-     y="735.30896"
+     x="830.59448"
+     y="755.57251"
      id="text2308"
      xml:space="preserve"
-     style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Arial"><tspan
-       x="826.7514"
-       y="735.30896"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:125%;font-family:Arial;text-align:start;writing-mode:lr-tb;text-anchor:start"><tspan
+       x="830.59448"
+       y="755.57251"
        id="tspan2310">22</tspan></text>
   <text
      x="714.17303"
@@ -701,13 +701,13 @@
        y="255.35001"
        id="tspan2562">26</tspan></text>
   <text
-     x="603.4682"
-     y="174.21303"
+     x="641.20026"
+     y="185.3929"
      id="text2564"
      xml:space="preserve"
-     style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Arial"><tspan
-       x="603.4682"
-       y="174.21303"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:125%;font-family:Arial;text-align:start;writing-mode:lr-tb;text-anchor:start"><tspan
+       x="641.20026"
+       y="185.3929"
        id="tspan2568">28</tspan></text>
   <text
      x="710.1217"
@@ -1445,13 +1445,13 @@
          y="952.43225"
          id="tspan2966">Iran</tspan></text>
     <text
-       x="669.6665"
-       y="702.56561"
+       x="668.96777"
+       y="695.57819"
        id="text2968"
        xml:space="preserve"
-       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Arial"><tspan
-         x="669.6665"
-         y="702.56561"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:24px;line-height:125%;font-family:Arial;text-align:start;writing-mode:lr-tb;text-anchor:start"><tspan
+         x="668.96777"
+         y="695.57819"
          id="tspan2972">Azerbaijan</tspan></text>
     <text
        x="473.79617"
@@ -1546,13 +1546,13 @@
          y="166.75671"
          id="tspan3030">Kalmykia</tspan></text>
     <text
-       x="325.39993"
-       y="80.172409"
+       x="324.00244"
+       y="53.969578"
        id="text3032"
        xml:space="preserve"
-       style="font-size:18px;font-style:oblique;font-variant:normal;font-weight:normal;font-stretch:condensed;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:DejaVu Sans"><tspan
-         x="325.39993"
-         y="80.172409"
+       style="font-style:oblique;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:18px;line-height:125%;font-family:'DejaVu Sans';text-align:start;writing-mode:lr-tb;text-anchor:start"><tspan
+         x="324.00244"
+         y="53.969578"
          id="tspan3036">Rostov</tspan></text>
     <path
        d="m 766.64378,123.7674 a 3.5837874,3.5837874 0 1 1 -7.16757,0 3.5837874,3.5837874 0 1 1 7.16757,0 z"
@@ -1777,13 +1777,13 @@
          y="390.22006"
          id="tspan3184">Chechnya</tspan></text>
     <text
-       x="707.57245"
-       y="507.45685"
+       x="712.46362"
+       y="521.08234"
        id="text3186"
        xml:space="preserve"
-       style="font-size:18px;font-style:oblique;font-variant:normal;font-weight:normal;font-stretch:condensed;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:DejaVu Sans"><tspan
-         x="707.57245"
-         y="507.45685"
+       style="font-style:oblique;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:18px;line-height:125%;font-family:'DejaVu Sans';text-align:center;writing-mode:lr-tb;text-anchor:middle"><tspan
+         x="712.46362"
+         y="521.08234"
          id="tspan3190">Dagestan</tspan></text>
     <text
        x="790.86292"
@@ -2018,6 +2018,56 @@
          x="674.4635"
          y="759.38538"
          id="tspan2860-9">Karabakh</tspan></text>
+    <text
+       xml:space="preserve"
+       style="fill:#000000"
+       x="224.51833"
+       y="242.15897"
+       id="text4"><tspan
+         sodipodi:role="line"
+         id="tspan4"
+         x="224.51833"
+         y="242.15897">$ady</tspan></text>
+    <text
+       xml:space="preserve"
+       style="fill:#000000"
+       x="419.46738"
+       y="357.10208"
+       id="text5"><tspan
+         sodipodi:role="line"
+         id="tspan5"
+         x="419.46738"
+         y="357.10208">$kbd</tspan></text>
+    <text
+       xml:space="preserve"
+       style="fill:#000000"
+       x="312.90921"
+       y="511.17471"
+       id="text6"><tspan
+         sodipodi:role="line"
+         id="tspan6"
+         x="312.90921"
+         y="511.17471">$ka</tspan></text>
+    <text
+       xml:space="preserve"
+       style="fill:#000000"
+       x="641.31805"
+       y="502.09106"
+       id="text7"><tspan
+         sodipodi:role="line"
+         id="tspan7"
+         x="641.31805"
+         y="502.09106">$av</tspan></text>
+    <text
+       xml:space="preserve"
+       style="fill:#000000"
+       x="479.5592"
+       y="676.42719"
+       id="text8"><tspan
+         sodipodi:role="line"
+         id="tspan8"
+         x="479.5592"
+         y="676.42719">$hy</tspan></text>
   </g>
   <g
      transform="translate(-2.3183292,-32.536334)"
@@ -3356,11 +3406,51 @@
   <text
      xml:space="preserve"
      style="fill:#000000"
-     x="273.20819"
+     x="257.83588"
      y="460.47107"
      id="text3"><tspan
        sodipodi:role="line"
        id="tspan3"
-       x="273.20819"
+       x="257.83588"
        y="460.47107">$ab</tspan></text>
+  <text
+     xml:space="preserve"
+     style="fill:#000000"
+     x="523.35785"
+     y="447.89374"
+     id="text9"><tspan
+       sodipodi:role="line"
+       id="tspan9"
+       x="523.35785"
+       y="447.89374">$os</tspan></text>
+  <text
+     xml:space="preserve"
+     style="fill:#000000"
+     x="288.58051"
+     y="49.610691"
+     id="text10"><tspan
+       sodipodi:role="line"
+       id="tspan10"
+       x="288.58051"
+       y="49.610691">$ru</tspan></text>
+  <text
+     xml:space="preserve"
+     style="fill:#000000"
+     x="803.90283"
+     y="721.45129"
+     id="text11"><tspan
+       sodipodi:role="line"
+       id="tspan11"
+       x="803.90283"
+       y="721.45129">$az</tspan></text>
+  <text
+     xml:space="preserve"
+     style="fill:#000000"
+     x="511.47925"
+     y="153.72327"
+     id="text12"><tspan
+       sodipodi:role="line"
+       id="tspan12"
+       x="511.47925"
+       y="153.72327">$xal</tspan></text>
 </svg>
