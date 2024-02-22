@@ -16,10 +16,12 @@
 | []  | Maltese      | mt   | right         |
 | []  | Welsh        | cy   | left and up   |
 | []  | Irish        | ga   | up            |
+| []  | Scots Gael   | ge   | up            |
+| []  | Romansh      | rm   | down and left |
 
 Add
-Cornish
-Manx
+| [] | Cornish | kw | |
+| [] | Manx | gv | |
 
 Edit
-Breton
+| [] | Breton | gv | |
