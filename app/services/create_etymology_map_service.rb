@@ -1,101 +1,98 @@
 class CreateEtymologyMapService
+
+  # 63 total from origial map. 1 dupe of sh.
+  # I added "kw", "gv"
+
   Combo = [
-    ["ab", "168d4f"],
-    ["ar", "ffffb1"],
-    ["az", "d45500"],
-    ["be", "b5ff64"],
-    # ["bos", "abc837"],
-    # other bosnian. I have sh
-    ["bg", "36ae22"],
-    ["br", "178df0"],
-    ["ca", "00ffff"],
-    # ["cau", "d38d5f"],
-    # other caucasian
-    # me none
-    ["co", "c0003c"],
-    ["cs", "00cb60"],
-    ["cy", "ff7f29"],
-    ["da", "ff5555"],
-    ["de", "d09999"],
-    ["el", "ffff00"],
-    ["en", "ffaaaa"],
-    ["es", "acd8ed"],
-    ["et", "b7c8be"],
-    ["eu", "ffd42a"],
-    ["fi", "6f997a"],
-    ["fo", "ff0000"],
-    ["fr", "53bbb5"],
-    ["fy", "d66c74"],
-    ["ga", "fd6d3c"],
-    ["gag", "c837ab"],
-    ["gd", "ff7f2a"],
-    ["gl", "00d4aa"],
-    # ["hr", "abc837"],
-    # my croat
-    # other hrv
-    ["hu", "ac9d93"],
-    ["hy", "008080"],
-    ["is", "f19076"],
-    ["it", "7bafe0"],
-    ["ka", "f4e3d7"],
-    ["kk", "deaa87"],
-    ["krl", "93ac93"],
-    ["lb", "55ddff"],
-    ["lij", "f2003c"],
-    ["lt", "e9afdd"],
-    ["lv", "de87cd"],
-    ["mk", "71c837"],
-    ["mt", "a0892c"],
-    ["nap", "f5003c"],
-    ["nl", "f4d7d7"],
-    ["no", "ff8080"],
-    ["oc", "168d5f"],
-    ["os", "985fd3"],
-    ["pl", "7ecb60"],
-    ["pms", "f2d53c"],
-    ["pt", "00d4d4"],
-    ["rm", "008079"],
-    ["ro", "aaccff"],
-    ["ru", "72ff00"],
-    ["sc", "c0ee3c"],
-    ["scn", "cc003c"],
-    ["sco", "168df0"],
-    ["se", "cccccc"],
-    # se is my sami
-    # sh x2
-    ["sh", "abc837"],
-    ["sk", "42f460"],
-    ["sl", "81c98d"],
-    ["sq", "a0856c"],
-    # ["srp", "abc837"],
-    # other serb
-    ["sv", "ffb380"],
-    ["tk", "cc9e4c"],
-    ["tt", "c7a25f"],
-    ["uk", "c1ff00"],
-    ["vnc", "f28d3c"],
-    # ["ven", "f28d3c"],
-    # vnc is my veneitian. ven is other
-    ["xal", "d34d5f"],
-  # 63 total. No duped sh
+    { name: "Abkhaz", abbreviation: "ab", color: "168d4f" },
+    { name: "Arabic", abbreviation: "ar", color: "ffffb1" },
+    { name: "Azerbaijani", abbreviation: "az", color: "d45500" },
+    { name: "Belarussian", abbreviation: "be", color: "b5ff64" },
+    { name: "Bulgarian", abbreviation: "bg", color: "36ae22" },
+    { name: "Breton", abbreviation: "br", color: "178df0" },
+    { name: "Catalan", abbreviation: "ca", color: "00ffff" },
+    { name: "Corsican", abbreviation: "co", color: "c0003c" },
+    { name: "Czech", abbreviation: "cs", color: "00cb60" },
+    { name: "Welsh", abbreviation: "cy", color: "ff7f29" },
+    { name: "Danish", abbreviation: "da", color: "ff5555" },
+    { name: "German", abbreviation: "de", color: "d09999" },
+    { name: "Greek", abbreviation: "el", color: "ffff00" },
+    { name: "English", abbreviation: "en", color: "ffaaaa" },
+    { name: "Spanish", abbreviation: "es", color: "acd8ed" },
+    { name: "Estonian", abbreviation: "et", color: "ffd42a" },
+    { name: "Basque", abbreviation: "eu", color: "ffd42a" },
+    { name: "Finnish", abbreviation: "fi", color: "6f997a" },
+    { name: "Faroese", abbreviation: "fo", color: "ff0000" },
+    { name: "French", abbreviation: "fr", color: "53bbb5" },
+    { name: "West Frisian", abbreviation: "fy", color: "d66c74" },
+    { name: "Irish", abbreviation: "ga", color: "fd6d3c" },
+    { name: "Gagauz", abbreviation: "gag", color: "c837ab" },
+    { name: "Scottish Gaelic", abbreviation: "gd", color: "ff7f2a" },
+    { name: "Galician", abbreviation: "gl", color: "00d4aa" },
+    { name: "Hungarian", abbreviation: "hu", color: "ac9d93" },
+    { name: "Armenian", abbreviation: "hy", color: "008080" },
+    { name: "Icelandic", abbreviation: "is", color: "f19076" },
+    { name: "Italian", abbreviation: "it", color: "7bafe0" },
+    { name: "Georgian", abbreviation: "ka", color: "f4e3d7" },
+    { name: "Kazakh", abbreviation: "kk", color: "deaa87" },
+    { name: "Karelian", abbreviation: "krl", color: "93ac93" },
+    { name: "Luxembourgish", abbreviation: "lb", color: "55ddff" },
+    { name: "Ligurian", abbreviation: "lij", color: "f2003c" },
+    { name: "Lithuanian", abbreviation: "lt", color: "e9afdd" },
+    { name: "Latvian", abbreviation: "lv", color: "de87cd" },
+    { name: "Macedonian", abbreviation: "mk", color: "71c837" },
+    { name: "Maltese", abbreviation: "mt", color: "a0892c" },
+    { name: "Neapolitan", abbreviation: "nap", color: "f5003c" },
+    { name: "Dutch", abbreviation: "nl", color: "f4d7d7" },
+    { name: "Norwegian", abbreviation: "no", color: "ff8080" },
+    { name: "Occitan", abbreviation: "oc", color: "168d5f" },
+    { name: "Ossetian", abbreviation: "os", color: "985fd3" },
+    { name: "Polish", abbreviation: "pl", color: "7ecb60" },
+    { name: "Piedmontese", abbreviation: "pms", color: "f2d53c" },
+    { name: "Portuguese", abbreviation: "pt", color: "00d4d4" },
+    { name: "Romansch", abbreviation: "rm", color: "008079" },
+    { name: "Romanian", abbreviation: "ro", color: "aaccff" },
+    { name: "Russian", abbreviation: "ru", color: "72ff00" },
+    { name: "Sardinian", abbreviation: "sc", color: "c0ee3c" },
+    { name: "Sicilian", abbreviation: "scn", color: "cc003c" },
+    { name: "Scots", abbreviation: "sco", color: "168df0" },
+    { name: "Northern Sami", abbreviation: "se", color: "cccccc" },
+    { name: "Serbo-Croatian", abbreviation: "sh", color: "abc837" },
+    { name: "Slovak", abbreviation: "sk", color: "42f460" },
+    { name: "Slovene", abbreviation: "sl", color: "81c98d" },
+    { name: "Albanian", abbreviation: "sq", color: "a0856c" },
+    { name: "Swedish", abbreviation: "sv", color: "ffb380" },
+    { name: "Turkish", abbreviation: "tk", color: "cc9e4c" },
+    { name: "Tatar", abbreviation: "tt", color: "c7a25f" },
+    { name: "Ukranian", abbreviation: "uk", color: "c1ff00" },
+    { name: "Venetian", abbreviation: "vnc", color: "f28d3c" },
+    { name: "Kalmyk", abbreviation: "xal", color: "d34d5f" },
+    { name: "Manx", abbreviation: "gv", color: "00ff01" },
+    { name: "Cornish", abbreviation: "kw", color: "00ff00" },
   ]
 
-  # The $___ from my_europe_template.svg
-  My_europe_svg = ["ab", "ar", "az", "be", "bg", "br", "ca", "co", "cs", "cy", "da", "de", "el", "en", "es", "et", "eu", "fi", "fo", "fr", "fy", "ga", "gag", "gd", "gl", "hu", "hy", "is", "it", "ka", "kk", "krl", "lb", "lij", "lt", "lv", "mk", "mt", "nap", "nl", "no", "oc", "os", "pl", "pms", "pt", "rm", "ro", "ru", "sc", "scn", "sco", "se", "sh", "sk", "sl", "sq", "sv", "tk", "tt", "uk", "vnc", "xal"]
-  # 65 with 2 dupe "sh" 63
+  # # The $___ from my_europe_template.svg
+  # My_europe_svg = ["ab", "ar", "az", "be", "bg", "br", "ca", "co", "cs", "cy", "da", "de", "el", "en", "es", "et", "eu", "fi", "fo", "fr", "fy", "ga", "gag", "gd", "gl", "hu", "hy", "is", "it", "ka", "kk", "krl", "lb", "lij", "lt", "lv", "mk", "mt", "nap", "nl", "no", "oc", "os", "pl", "pms", "pt", "rm", "ro", "ru", "sc", "scn", "sco", "se", "sh", "sk", "sl", "sq", "sv", "tk", "tt", "uk", "vnc", "xal", "gv", "kw"]
+  # # 65 with 2 dupe "sh" 63
+  # # I added "kw", "gv"
 
+  # This is what I will divide by.
   Families_list = ["Albanian", "Anatolian", "Armenian", "Ancient Greek", "Hellenic", "Latin", "Proto-Balto-Slavic", "Proto-Slavic", "Proto-Baltic", "Proto-Celtic", "Proto-Germanic", "Proto-Indo-Iranian", "Proto-Tocharian", "Proto-Finnic", "Proto-Sami", "Proto-Ugric", "Proto-Basque", "Proto-Turkic", "Proto-Afro-Asiatic", "Semitic", "Arabic", "Proto-Kartvelian", "Proto-Northwest Caucasian", "Proto-Northeast Caucasian"]
   # "Proto-Italic",
 
   def self.find_all_etymologies_by_area_img(area, word)
     t1 = Time.now
+
+    # blank color
+    blank_color = "ffffff"
+
     # search_results = Translation.find_all_translations_by_area(area, word)
 
     # below for just default map
     search_results = Translation.find_all_translations_by_area_europe_map(area, word)
     search_results_lang_array = search_results.map { |lang| lang.abbreviation }.sort
-    languages_array = Combo.map { |item| item[0] }
-    color_codes_array = Combo.map { |item| item[1] }
+    languages_array = Combo.map { |item| item[:abbreviation] }
+    color_codes_array = Combo.map { |item| item[:color] }
     result_array = []
 
     # the array that etymologies are checked against to see if they are shared or not.
@@ -156,6 +153,7 @@ class CreateEtymologyMapService
         next
       end
 
+      # prev Regexes
       # (/ *, *(?=[^\)]*?(?:\(|$))/) split on commas
       # gsub(/\[.*?\]/, "") => remove space + brackets and their contents
       # gsub(/\s\(.*?\)/, '') => remove space + parenthesis and their contents
@@ -171,7 +169,7 @@ class CreateEtymologyMapService
       matched = false
 
       # Words that confuse the match
-      remove_words = ["ultimately", "derived", "borrowed", "shortened", "by", "metathesis", "both", "all", "the", "voiced", "verner", "alternant", "classical", "with", "change", "of", "ending", "itself", "probably", "later", "late", "vulgar", "a", "modification", "root", "or", "borrowing", "learned", "semi-learned", "conflation", "via", "taken", "either", "regularized", "regularised", "form", "medieval", "diminutive", "variant", "through", "prothesis", "literary", "taken", "reformation", "inherited", "feminine", "masculine", "hypothetical", "reborrowing", "plural", "despite", "being", "in", "fact", "uncertain", "origin", "derivative", "eventually", "less", "likely"]
+      remove_words = ["a", "all", "alternant", "being", "borrowed", "borrowing", "both", "by", "change", "classical", "conflation", "derivative", "derived", "despite", "diminutive", "either", "ending", "eventually", "fact", "feminine", "form", "hypothetical", "in", "inherited", "itself", "late", "later", "learned", "less", "likely", "literary", "masculine", "medieval", "metathesis", "modification", "of", "or", "origin", "plural", "probably", "prothesis", "reborrowing", "reformation", "regularised", "regularized", "root", "semi-learned", "shortened", "taken", "the", "through", "ultimately", "uncertain", "variant", "verner", "via", "voiced", "vulgar", "with"]
 
       # Prefer "Latin" instead of "Vulgar Latin".
       # Account for "from Vulgar Latin "xe", from Latin "x" confusion.
@@ -188,7 +186,6 @@ class CreateEtymologyMapService
       # matching logic
       current_etymology_array.each do |etymology|
         # clean the current etymology, one item in the current_etymology_array
-        # clean_etymology = etymology.strip.split(" ").delete_if{|word| remove_words.include?(word.downcase)}.join(" ").parameterize(separator: " ")
         clean_etymology = etymology.strip.split(" ").delete_if { |word| remove_words.include?(word.downcase) }.join(" ")
 
         # loop over the families. Try to match wods in clean_etymology to a family name.
@@ -233,7 +230,7 @@ class CreateEtymologyMapService
       if result.etymology.nil? || result.etymology == "Null"
         edited_result = romanization_helper(result)[0].to_h
         edited_result[:index] = nil
-        edited_result[:color] = "ffffff"
+        edited_result[:color] = blank_color
         result_array << edited_result
 
         # if result.etymology IS an etymology, but it is NOT in the array, it will have nil as index_in_ety_array
@@ -242,7 +239,7 @@ class CreateEtymologyMapService
       elsif index_in_ety_array.nil?
 
         # set default color to missing. If it later is found, use found_color
-        found_color = "ffffff"
+        found_color = blank_color
         if languages_array.find_index(result[:abbreviation])
           found_color = color_codes_array[languages_array.find_index(result[:abbreviation])]
         end
@@ -303,6 +300,7 @@ class CreateEtymologyMapService
     # remove unused langs $__ from map and color it blank
     # remove unused regional langs $__ and color it to larger lang
     unused_map_languages = map_languages - current_languages
+
     for unused_language in unused_map_languages
 
       # change the text to ""
@@ -312,14 +310,14 @@ class CreateEtymologyMapService
       color_from_map = color_codes_array[languages_array.find_index(unused_language)]
 
       # change the color.
-      if ["pms", "lij", "vnc", "nap", "scn", "sc"].include?(unused_language) && !italian_color.nil? && italian_color != "ffffff"
+      if ["pms", "lij", "vnc", "nap", "scn", "sc"].include?(unused_language) && !italian_color.nil? && italian_color != blank_color
         map_code = map_code.gsub("#" + color_from_map, "#" + italian_color)
-      elsif unused_language == "sco" && !english_color.nil? && english_color != "ffffff"
+      elsif unused_language == "sco" && !english_color.nil? && english_color != blank_color
         map_code = map_code.gsub("#" + color_from_map, "#" + english_color)
-      elsif ["oc", "co", "br"].include?(unused_language) && !french_color.nil? && french_color != "ffffff"
+      elsif ["oc", "co", "br"].include?(unused_language) && !french_color.nil? && french_color != blank_color
         map_code = map_code.gsub("#" + color_from_map, "#" + french_color)
       else
-        map_code = map_code.gsub("#" + color_from_map, "#" + "ffffff")
+        map_code = map_code.gsub("#" + color_from_map, "#" + blank_color)
       end
     end
 
@@ -330,7 +328,7 @@ class CreateEtymologyMapService
       map_code = map_code.sub("$" + language[:abbreviation], "#{language[:translation]}")
 
       # change the result color on the map
-      color_from_map = "ffffff"
+      color_from_map = blank_color
       if languages_array.include?(language[:abbreviation])
         color_from_map = color_codes_array[languages_array.find_index(language[:abbreviation])]
       end
@@ -343,6 +341,8 @@ class CreateEtymologyMapService
 
     unused_search_results = (map_languages - search_results_lang_array).sort
     unused_map_languages2 = (search_results_lang_array - map_languages).sort
+
+    create_logs(search_results, word, area, map_languages, unused_map_languages, unused_search_results, unused_map_languages2, current_languages, etymology_array, t1)
 
     send_map(map_code)
   end
@@ -366,7 +366,7 @@ class CreateEtymologyMapService
     end
   end
 
-  def self.create_logs
+  def self.create_logs(search_results, word, area, map_languages, unused_map_languages, unused_search_results, unused_map_languages2, current_languages, etymology_array, t1)
     puts "\n"
     puts "#{search_results.length} matching languages in the DB for the word: #{word.upcase} in: #{area}"
     puts "#{map_languages.length} languages on the map"
