@@ -4,7 +4,7 @@ class CreateCaucasusTranslationMapService
     { name: "Adyghe", abbreviation: "ady", id: "2", color: "d9196d" },
     { name: "Cherkess", abbreviation: "", id: "3", color: "73012c" },
     { name: "Kabardian", abbreviation: "kbd", id: "4", color: "f0a0bc" },
-    { name: "Georgian", abbreviation: "", id: "5", color: "fac03b" },
+    { name: "Georgian", abbreviation: "ka", id: "5", color: "fac03b" },
     { name: "Agul", abbreviation: "", id: "6", color: "ffd180" },
     { name: "Avar", abbreviation: "av", id: "7", color: "dcb590" },
     { name: "Dargin", abbreviation: "", id: "8", color: "f9c9b9" },
@@ -99,6 +99,7 @@ class CreateCaucasusTranslationMapService
     end
     puts "\n"
     puts "#{current_languages.length} languages in DB and map"
+    print current_languages
     # puts "#{(My_europe_svg.length - map_languages.length)} languages missing between My_europe_svg and map_languages:"
     # puts "They are: #{My_europe_svg - map_languages} languages"
     puts "\n"
@@ -127,27 +128,27 @@ class CreateCaucasusTranslationMapService
     end
   end
 
-  def self.create_logs
-    puts "\n"
-    puts "#{search_results.length} matching languages in the DB for the word: #{word.upcase} in: #{area}"
-    puts "#{map_languages.length} languages on the map"
-    puts "#{unused_map_languages.length} unused languages(on map, but not in DB or no etymology)"
-    print unused_map_languages
-    puts "\n"
-    puts "#{unused_search_results.length} unused languages(on map, but not in DB)"
-    print unused_search_results
-    puts "\n"
-    puts "#{unused_map_languages2.length} unused search languages(in search results, but not on map)"
-    if unused_map_languages2.length > 0
-      print unused_map_languages2
-    end
-    puts "\n"
-    puts "#{current_languages.length} languages in DB and map"
-    puts "#{etymology_array.length} <== unique etymologies"
-    # puts "#{(My_europe_svg.length - map_languages.length)} languages missing between My_europe_svg and map_languages:"
-    # puts "They are: #{My_europe_svg - map_languages} languages"
-    puts "\n"
-    puts "computed in #{Time.now - t1} seconds."
-    puts "\n"
-  end
+  # def self.create_logs
+  #   puts "\n"
+  #   puts "#{search_results.length} matching languages in the DB for the word: #{word.upcase} in: #{area}"
+  #   puts "#{map_languages.length} languages on the map"
+  #   puts "#{unused_map_languages.length} unused languages(on map, but not in DB or no etymology)"
+  #   print unused_map_languages
+  #   puts "\n"
+  #   puts "#{unused_search_results.length} unused languages(on map, but not in DB)"
+  #   print unused_search_results
+  #   puts "\n"
+  #   puts "#{unused_map_languages2.length} unused search languages(in search results, but not on map)"
+  #   if unused_map_languages2.length > 0
+  #     print unused_map_languages2
+  #   end
+  #   puts "\n"
+  #   puts "#{current_languages.length} languages in DB and map"
+  #   puts "#{etymology_array.length} <== unique etymologies"
+  #   # puts "#{(My_europe_svg.length - map_languages.length)} languages missing between My_europe_svg and map_languages:"
+  #   # puts "They are: #{My_europe_svg - map_languages} languages"
+  #   puts "\n"
+  #   puts "computed in #{Time.now - t1} seconds."
+  #   puts "\n"
+  # end
 end
