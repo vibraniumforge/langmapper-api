@@ -14,7 +14,7 @@ class CreateMapService
     # me none
     ["co", "c0003c"],
     ["cs", "00cb60"],
-    ["cy", "ff7f29"],
+    ["cy", "00b23e"],
     ["da", "ff5555"],
     ["de", "d09999"],
     ["el", "ffff00"],
@@ -26,7 +26,7 @@ class CreateMapService
     ["fo", "ff0000"],
     ["fr", "53bbb5"],
     ["fy", "d66c74"],
-    ["ga", "fd6d3c"],
+    ["ga", "169b62"],
     ["gag", "c837ab"],
     ["gd", "ff7f2a"],
     ["gl", "00d4aa"],
@@ -77,14 +77,10 @@ class CreateMapService
     # ["ven", "f28d3c"],
     # vnc is my veneitian. ven is other
     ["xal", "d34d5f"],
+    ["gv", "00ff01"],
+    ["kw", "00ff00"],
   # 63
   ]
-
-  # x = doc.xpath('//*[contains(@style,"fill")]')[0].attributes["style"].children.to_s
-  # x.slice(x.index("#)", 11)
-
-  Families_list = ["Tartessian", "Kipchak", "Kipchak-Nogai", "Albanian", "Oghuz", "Finnic", "Etruscan", "Hellenic", "Sami", "Celtic", "Yukaghir", "South", "Armenian", "Koreanic", "Anatolian", "Circassian", "Svan", "Yeniseian", "Indo-Iranian", "Zan", "Viet", "Basque", "Egyptian", "Ainu", "Tocharian", "Kipchak-Bulgar", "Nivkh", "Ugric", "Khmeric", "Kusunda", "Burushkaski", "Karluk", "Balto-Slavic", "Vasconic", "Sumerian", "Chukotko-Kamchatkan ", "Semitic", "Elamite", "South Central", "Iberian", "Proto-Germanic", "Abkhaz-Abaza", "Proto-Slavic", "Latin", "Proto-Turkic", "Proto-Baltic", "Ancient Greek"]
-  # "Proto-Italic"
 
   # # The $___ from my_europe_template.svg
   # My_europe_svg = ["ab", "ar", "az", "be", "bg", "br", "ca", "co", "cs", "cy", "da", "de", "el", "en", "es", "et", "eu", "fi", "fo", "fr", "fy", "ga", "gag", "gd", "gl", "hu", "hy", "is", "it", "ka", "kk", "krl", "lb", "lij", "lt", "lv", "mk", "mt", "nap", "nl", "no", "oc", "os", "pl", "pms", "pt", "rm", "ro", "ru", "sc", "scn", "sco", "se", "sh", "sh", "sh", "sk", "sl", "sq", "sv", "tk", "tt", "uk", "vnc", "xal"]
@@ -92,6 +88,11 @@ class CreateMapService
 
   def self.find_all_translations_by_area_img(area, word)
     # get the relevant info from the DB
+
+    if area == "Caucasus"
+      puts "in find_all_translations_by_area_img"
+      CreateCaucasusTranslationMapService.create_caucasus_translation_map(area, word)
+    end
     search_results = Translation.find_all_translations_by_area(area, word)
 
     # result after processing, this is what gets placed on the map
@@ -227,7 +228,9 @@ class CreateMapService
   end
 
   # pick the right color for the matching gender
+  # old masc_color = "87CEFA"
   def self.gender_color_finder(gender)
+    masc_color = "89CFF0"
     gender_color = ""
     case gender
     # when nil
@@ -235,17 +238,17 @@ class CreateMapService
     # when ""
     #   gender_color = "FFFFFF"
     when "m"
-      gender_color = "87CEFA"
+      gender_color = masc_color
     when "m anim"
-      gender_color = "87CEFA"
+      gender_color = masc_color
     when "m inan"
-      gender_color = "87CEFA"
+      gender_color = masc_color
     when "m pl"
-      gender_color = "87CEFA"
+      gender_color = masc_color
     when "m or f"
-      gender_color = "87CEFA"
+      gender_color = masc_color
     when "m or n"
-      gender_color = "87CEFA"
+      gender_color = masc_color
     when "f"
       gender_color = "FFC0CB"
     when "f pl"
