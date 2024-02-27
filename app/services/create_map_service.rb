@@ -7,7 +7,7 @@ class CreateMapService
     # ["bos", "abc837"],
     # other bosnian. I have sh
     ["bg", "36ae22"],
-    ["br", "178df0"],
+    ["br", "00ff00"],
     ["ca", "00ffff"],
     # ["cau", "d38d5f"],
     # other caucasian
@@ -77,8 +77,8 @@ class CreateMapService
     # ["ven", "f28d3c"],
     # vnc is my veneitian. ven is other
     ["xal", "d34d5f"],
-    ["gv", "00ff01"],
-    ["kw", "00ff00"],
+    ["gv", "00ff02"],
+    ["kw", "00ff01"],
   # 63
   ]
 
@@ -197,7 +197,7 @@ class CreateMapService
       # color the missing regional languages to their national ones
       if ["pms", "lij", "vnc", "nap", "scn", "sc"].include?(unused_language) && !italian_gender.nil?
         map_code = map_code.gsub("#" + color_from_map, "#" + gender_color_finder(italian_gender))
-      elsif ["oc", "co", "br"].include?(unused_language) && !french_gender.nil?
+      elsif ["oc", "co"].include?(unused_language) && !french_gender.nil?
         map_code = map_code.gsub("#" + color_from_map, "#" + gender_color_finder(french_gender))
       else
         map_code = map_code.gsub("#" + color_from_map, "#" + "ffffff")
