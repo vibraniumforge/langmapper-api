@@ -68,3 +68,14 @@ Good Words
 
 - [ ] Water
 - [ ] Sea
+
+- [ ] Mercury
+- [ ] Bronze
+- [ ] Brass
+
+- [ ] Badger
+- [ ] Lynx
+- [ ] Salmon
+
+- [ ] Fire
+- [ ] Money
