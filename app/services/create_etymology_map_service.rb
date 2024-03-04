@@ -355,7 +355,7 @@ class CreateEtymologyMapService
     puts "\n"
     puts "#{search_results.length} matching languages in the DB for the word: #{word.upcase} in: #{area}"
     puts "#{map_languages.length} languages on the map"
-    puts "#{unused_map_languages.length} unused languages(on map, but no etymology)"
+    puts "#{unused_map_languages.length} unused languages(on map, in DB, but no etymology)"
     print unused_map_languages
     puts "\n"
     puts "#{unused_search_results.length} unused languages(on map, but not in DB)"
