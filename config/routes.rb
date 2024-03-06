@@ -70,6 +70,7 @@ Rails.application.routes.draw do
       # This above route does the "Search Translations by Area" page route.
       # It also gets the data for all 3 maps' tables. It gets everything that matches, even if it is not on the map.
 
+      get "/find_translation_by_word_and_language/:word_id/:language_id", to: "translations#find_translation_by_word_and_language"
       get "/translations/get/seeds", to: "translations#seeds"
 
       # helpers for selects
