@@ -70,10 +70,13 @@ Fish
 
 Reptiles
 
-- [ ] Frog
 - [ ] Turtle
 - [ ] Snake
 - [ ] Lizard
+
+Amphibians
+
+- [ ] Frog
 
 Insects
 
@@ -131,6 +134,7 @@ Materials
 - [ ] Coal
 - [ ] Oil
 - [ ] Concrete
+- [ ] Steel
 
 Head Parts
 
@@ -203,6 +207,7 @@ Geography
 - [ ] River
 - [ ] Island
 - [ ] Forest
+- [ ] Swamp
 
 Technology
 
@@ -217,7 +222,6 @@ Technology
 - [ ] Candle
 - [ ] Shoe
 - [ ] Key
-- [ ] Wheel
 - [ ] Money
 - [ ] Chariot
 
