@@ -205,9 +205,6 @@ Language.create({ name: "Chukchi", abbreviation: "ckt", alphabet: "Cyrl", macrof
 # Nivkh
 Language.create({ name: "Nivkh", abbreviation: "niv", alphabet: "Cyrl", macrofamily: "Isolate", family: "Nivkh", subfamily: nil, area1: "North Asia", area2: nil, area3: nil, notes: nil, has_gender: false, alive: true })
 
-# Yukaghir
-Language.create({ name: "Omak", abbreviation: "omk", alphabet: "Cyrl", macrofamily: "Isolate", family: "Yukaghir", subfamily: nil, area1: "North Asia", area2: nil, area3: nil, notes: nil, has_gender: false, alive: true })
-
 # Yeniseian
 Language.create({ name: "Ket", abbreviation: "ket", alphabet: "Cyrl", macrofamily: "Isolate", family: "Yeniseian", subfamily: nil, area1: "North Asia", area2: nil, area3: nil, notes: nil, has_gender: false, alive: true })
 
