@@ -1,6 +1,7 @@
 module Api::V1
   class TranslationsController < ApplicationController
     before_action :authorized, only: [:show, :edit, :update, :destroy]
+
     # skip_before_action: authorized, only: [:index, :new, :create]
 
     def index
@@ -116,7 +117,13 @@ module Api::V1
     # Mappers
 
     def find_all_translations_by_area_img
-      @translations = CreateMapService.find_all_translations_by_area_img(params[:area], params[:word])
+      # @translations = CreateMapService.find_all_translations_by_area_img(params[:area], params[:word])
+      case params[:area]
+      when "Europe"
+        @translations = CreateMapService.find_all_translations_by_area_img(params[:area], params[:word])
+      when "Caucasus"
+        @translations = CreateCaucasusTranslationMapService.create_caucasus_translation_map(params[:area], params[:word])
+      end
       # @translations = Translation.find_all_translations_by_area_img(params[:area], params[:word])
       send_file @translations, disposition: :inline
       # render json: { message: "Translations by area image successfully returned.", success: true, data: @translations, disposition: :inline }, status: 200
@@ -143,6 +150,12 @@ module Api::V1
     # @macrofamilies = Translation.find_all_translations_by_macrofamily(macrofamily: params[:macrofamily])
     # render json: { message: "All macrofamilies successfully returned.", success: true, data: @macrofamilies }, status: 200
     # end
+
+    def find_translation_by_word_and_language
+      @translation = Translation.find_translation_by_word_and_language(params[:word_id], params[:language_id])
+      render json: { message: "Translations of #{@translation.first.word_name}, word_id: #{params[:word_id]}, in #{@translation.first.name}, language_id: #{params[:language_id]} successfully returned.", success: true, data: @translation }, status: 200
+        #  render json: { message: "Translations ", success: true, data: @translation }, status: 200
+    end
 
     private
 
