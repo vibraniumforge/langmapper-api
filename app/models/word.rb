@@ -1,6 +1,6 @@
 class Word < ApplicationRecord
-  has_many :translations, dependent: :destroy
-  has_many :languages, through: :translations
+  has_one :translation, dependent: :destroy
+  has_one :language, through: :translations
 
   validates :word_name, presence: true, uniqueness: true
 
