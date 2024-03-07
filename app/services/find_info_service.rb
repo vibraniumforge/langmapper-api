@@ -2,7 +2,6 @@
 class FindInfoService
   require "open-uri"
 
-
   def self.find_info(chosen_word)
     t1 = Time.now
 
@@ -66,9 +65,15 @@ class FindInfoService
 
     definition = page.css("table.translations")[0].attributes["data-gloss"].value
     # word_id = Word.find_by({ word_name: chosen_word }).id
-    word_id = Word.find_or_create_by(word_name: chosen_word).id
-    @word = Word.find(word_id)
-    @word.update({ definition: definition })
+    # word_id = Word.find_or_create_by(word_name: chosen_word).id
+    # @word = Word.find(word_id)
+    # @word.update({ definition: definition })
+
+    if Word.where({ word_name: chosen_word }).exists?
+      return
+    end
+    @word = Word.create({ word_name: chosen_word, definition: definition})
+    word_id = @word.id
 
     # create the English entry first. Can't scrape this the same as other langs.
     Translation.create({ language_id: 1, word_id: word_id, translation: chosen_word, romanization: chosen_word, link: "https://en.wiktionary.org/wiki/#{chosen_word}", etymology: etymology_english, gender: nil })
