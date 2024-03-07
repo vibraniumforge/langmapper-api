@@ -102,6 +102,7 @@
 - [ ] Olive 🫒
 - [ ] Grape 🍇
 - [ ] Peanut 🥜
+- [ ] Cherry
 
 - [ ] Mint
 - [ ] Peach 🍑
@@ -175,8 +176,10 @@
 ###Body Parts
 
 - [ ] Blood 🩸
+- [ ] Arm
 - [ ] Hand ✋
 - [ ] Finger 👇
+- [ ] Thumb 👍
 - [ ] Leg
 - [ ] Foot
 - [ ] Toe
@@ -207,6 +210,8 @@
 - [ ] Rainbow 🌈
 - [ ] Thunder
 - [ ] Lightning 🌩️
+- [ ] Steam
+- [ ] Smoke
 
 ###Time of Day
 
