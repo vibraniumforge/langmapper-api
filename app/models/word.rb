@@ -1,12 +1,11 @@
 class Word < ApplicationRecord
-  has_one :translation, dependent: :destroy
-  has_one :language, through: :translations
+  has_many :translations, dependent: :destroy
+  has_many :languages, through: :translations
 
   validates :word_name, presence: true, uniqueness: true
 
   def self.all_word_names
-    # Word.select("words.word_name, words.id").order("word_name ASC")
-    Word.select("words.word_name, words.id").order(word_name: :asc)
+    Word.select("words.word_name, words.id").order(id: :desc)
   end
 
   def self.words_count

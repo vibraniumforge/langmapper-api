@@ -1,6 +1,6 @@
 class Language < ApplicationRecord
-  has_one :translation, dependent: :destroy
-  has_one :word, through: :translations
+  has_many :translations, dependent: :destroy
+  has_many :words, through: :translations
 
   validates :name, presence: true
   validates :abbreviation, length: { in: 2..3 }, allow_blank: false
