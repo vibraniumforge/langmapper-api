@@ -1,52 +1,54 @@
-Good Words
+#Good Words
 
-Elements
+###Elements
 
-- [ ] Gold
-- [ ] Silver
-- [ ] Copper
-- [ ] Iron
-- [ ] Tin
-- [ ] Lead
-- [ ] Mercury
+- [ ] Gold 🥇
+- [ ] Silver 🥈
+- [ ] Copper 🜠
+- [ ] Iron 🜜
+- [ ] Tin ♃
+- [ ] Lead 🜪
+- [ ] Mercury ☿
 
-Chemicals
+###Chemicals
 
-- [ ] Salt
-- [ ] Bronze
+- [ ] Salt 🧂
+- [ ] Bronze 🥉
 - [ ] Brass
-- [ ] Water
+- [ ] Water 💧
 
-Domestic Animals
+###Domestic Animals
 
-- [ ] Horse
-- [ ] Donkey
-- [ ] Ox
-- [ ] Cow
-- [ ] Bull
-- [ ] Sheep
-- [ ] Pig
-- [ ] Goat
-- [ ] Dog
-- [ ] Cat
-- [ ] Chicken
+- [ ] Horse 🐎
+- [ ] Donkey 🫏
+- [ ] Ox 🐂
+- [ ] Cow 🐮
+- [ ] Bull 🐂
+- [ ] Sheep 🐑
+- [ ] Ram 🐏
+- [ ] Pig 🐷
+- [ ] Goat 🐐
+- [ ] Dog 🐶
+- [ ] Cat 🐱
+- [ ] Chicken 🐓
 
-Mammals
+###Mammals
 
-- [ ] Wolf
-- [ ] Fox
-- [ ] Lion
+- [ ] Wolf 🐺
+- [ ] Fox 🦊
+- [ ] Lion 🦁
 - [ ] Lynx
-- [ ] Bear
-- [ ] Mouse
-- [ ] Otter
-- [ ] Deer
-- [ ] Badger
-- [ ] Rabbit
-- [ ] Beaver
+- [ ] Bear 🧸
+- [ ] Mouse 🐭
+- [ ] Otter 🦦
+- [ ] Deer 🦌
+- [ ] Badger 🦡
+- [ ] Rabbit 🐰
+- [ ] Beaver 🦫
 - [ ] Weasel
+- [ ] Hedgehog 🦔
 
-Birds
+###Birds
 
 - [ ] Bird
 - [ ] Feather
@@ -60,25 +62,28 @@ Birds
 - [ ] Eagle
 - [ ] Gull
 - [ ] Robin
+- [ ] Raven
+- [ ] Blackbird
 
-Fish
+###Fish
 
 - [ ] Fish
 - [ ] Trout
 - [ ] Shark
 - [ ] Salmon
+- [ ] Eel
 
-Reptiles
+###Reptiles
 
 - [ ] Turtle
 - [ ] Snake
 - [ ] Lizard
 
-Amphibians
+###Amphibians
 
 - [ ] Frog
 
-Insects
+###Insects
 
 - [ ] Ant
 - [ ] Bee
@@ -88,42 +93,64 @@ Insects
 - [ ] Butterfly
 - [ ] Dragonfly
 
-Food
+###Food
 
-- [ ] Apple
-- [ ] Strawberry
+- [ ] Apple 🍎
+- [ ] Hazelnut
+- [ ] Carrot 🥕
+- [ ] Pear 🍐
+- [ ] Olive 🫒
+- [ ] Grape 🍇
+- [ ] Peanut 🥜
+
+- [ ] Mint
+- [ ] Peach 🍑
+- [ ] Plum
+- [ ] Apricot
+
+###Citrus
+
+- [ ] Lemon 🍋
+- [ ] Lime
+- [ ] Orange 🍊
+- [ ] Tangerine
+- [ ] Grapefruit
+
+###Berries
+
+- [ ] Berry
+- [ ] Strawberry 🍓
 - [ ] Raspberry
-- [ ] Blueberry
-- [ ] Carrot
-- [ ] Pear
-- [ ] Olive
+- [ ] Blueberry 🫐
+- [ ] Mulberry
 
-Agricultural Products
+###Agricultural Products
 
-- [ ] Honey
-- [ ] Milk
-- [ ] Egg
-- [ ] Wool
+- [ ] Honey 🍯
+- [ ] Milk 🥛
+- [ ] Egg 🥚
+- [ ] Wool 🐑➕✂️
 
-Refined Agricultural Products
+###Refined Agricultural Products
 
 - [ ] Beer
 - [ ] Wine
 - [ ] Bread
 - [ ] Cheese
 
-Plants
+###Plants
 
-- [ ] Tree
-- [ ] Flower
+- [ ] Tree 🌳
+- [ ] Flower 🌸
+- [ ] Rose 🌹
 - [ ] Grass
 - [ ] Forest
-- [ ] Leaf
+- [ ] Leaf 🍁
 - [ ] Seed
 - [ ] Vine
-- [ ] Mushroom
+- [ ] Mushroom 🍄
 
-Materials
+###Materials
 
 - [ ] Amber
 - [ ] Silk
@@ -136,105 +163,109 @@ Materials
 - [ ] Concrete
 - [ ] Steel
 
-Head Parts
+###Head Parts
 
+- [ ] Mouth
 - [ ] Tongue
 - [ ] Tooth
 - [ ] Ear
 - [ ] Eye
 - [ ] Nose
-- [ ] Mouth
 
-Body Parts
+###Body Parts
 
-- [ ] Hand
-- [ ] Blood
-- [ ] Finger
+- [ ] Blood 🩸
+- [ ] Hand ✋
+- [ ] Finger 👇
 - [ ] Leg
+- [ ] Foot
+- [ ] Toe
 - [ ] Bone
+- [ ] Hair
 
-Organs
+###Organs
 
-- [ ] Brain
-- [ ] Heart
+- [ ] Brain 🧠
+- [ ] Heart ❤️
 - [ ] Lung
 - [ ] Liver
 - [ ] Stomach
 
-Weather
+###Weather
 
-- [ ] Snow
-- [ ] Rain
+- [ ] Snow ❄️
+- [ ] Rain 🌧️
 - [ ] Hail
 - [ ] Ice
 - [ ] Frost
 - [ ] Wind
 
-Atmosphere
+###Atmosphere
 
-- [ ] Cloud
-- [ ] Fog
-- [ ] Rainbow
+- [ ] Cloud ☁️
+- [ ] Fog 🌫️
+- [ ] Rainbow 🌈
 - [ ] Thunder
-- [ ] Lightning
+- [ ] Lightning 🌩️
 
-Time
+###Time of Day
 
 - [ ] Dawn
 - [ ] Day
 - [ ] Noon
-- [ ] Night
+- [ ] Night ✨
 - [ ] Dusk
 
-Seasons
+###Seasons
 
-- [ ] Winter
+- [ ] Winter ⛄️
 - [ ] Summer
-- [ ] Autumn
+- [ ] Autumn 🍂
 
-Astronomy
+###Astronomy
 
-- [ ] Sun
-- [ ] Moon
+- [ ] Sun ☀️
+- [ ] Moon 🌕
 - [ ] Sky
-- [ ] Star
+- [ ] Star ⭐️
 
-Geography
+###Geography
 
 - [ ] Sea
-- [ ] Mountain
+- [ ] Mountain 🗻
 - [ ] Lake
 - [ ] River
 - [ ] Island
 - [ ] Forest
 - [ ] Swamp
+- [ ] Volcano 🌋
 
-Technology
+###Technology
 
-- [ ] Wheel
+- [ ] Wheel 🛞
 - [ ] Sail
-- [ ] Boat
+- [ ] Boat ⛵️
 - [ ] Oven
-- [ ] Fire
+- [ ] Fire 🔥
 - [ ] Anvil
-- [ ] Hammer
+- [ ] Hammer 🔨
 - [ ] Yoke
-- [ ] Candle
-- [ ] Shoe
-- [ ] Key
-- [ ] Money
+- [ ] Candle 🕯️
+- [ ] Shoe 👟
+- [ ] Key 🔑
+- [ ] Money 💵
 - [ ] Chariot
+- [ ] Umbrella ☂️
 
-Textiles
+###Textiles
 
-- [ ] Thread
-- [ ] Needle
+- [ ] Thread 🧵
+- [ ] Needle 🪡
 - [ ] Thimble
-- [ ] Rope
 - [ ] Loom
 - [ ] Cloth
 
-Military
+###Military
 
 - [ ] Shield
 - [ ] Sword
@@ -242,14 +273,63 @@ Military
 - [ ] Arrow
 - [ ] Spear
 
-Buildings
+###Buildings
 
-- [ ] Castle
+- [ ] Castle 🏰
 - [ ] Bridge
 
-Culture
+###City Life
+
+- [ ] Wall
+- [ ] Soap 🧼
+- [ ] Pharmacy
+
+###Culture
 
 - [ ] Song
-- [ ] King
-- [ ] Book
+- [ ] King 👑
+- [ ] Book 📘
+
+###Christianity
+
 - [ ] Bible
+- [ ] Church ⛪️
+- [ ] Christmas
+- [ ] Easter
+- [ ] Bishop ♝
+
+###Countries
+
+- [ ] Finland 🇫🇮
+- [ ] Germany 🇩🇪
+- [ ] Armenia 🇦🇲
+- [ ] Albania 🇦🇱
+- [ ] Egypt 🇪🇬
+
+###Cities
+
+- [ ] Vienna
+- [ ] Bratislava
+
+###Weekdays
+
+- [ ] Sunday
+- [ ] Monday
+- [ ] Tuesday
+- [ ] Wednesdday
+- [ ] Thursday
+- [ ] Friday
+- [ ] Saturday
+
+###Colors
+
+- [ ] Red
+- [ ] Orange
+- [ ] Yellow
+- [ ] Green
+- [ ] Blue
+- [ ] Purple
+- [ ] Black
+- [ ] White
+- [ ] Gray
+- [ ] Pink
