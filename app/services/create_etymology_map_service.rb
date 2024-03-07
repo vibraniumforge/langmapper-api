@@ -3,7 +3,7 @@ class CreateEtymologyMapService
   # 63 total from origial map. 1 dupe of sh.
   # I added "kw", "gv"
 
-  $BaseEuropeMapHash = [
+  BaseEuropeMapHash = [
     { name: "Abkhaz", abbreviation: "ab", color: "168d4f" },
     { name: "Arabic", abbreviation: "ar", color: "ffffb1" },
     { name: "Azerbaijani", abbreviation: "az", color: "d45500" },
@@ -77,7 +77,7 @@ class CreateEtymologyMapService
   # # I added "kw", "gv"
 
   # This is what I will divide by.
-  $Families_list = ["Albanian", "Anatolian", "Armenian", "Ancient Greek", "Hellenic", "Latin", "Proto-Balto-Slavic", "Proto-Slavic", "Proto-Baltic", "Proto-Celtic", "Proto-Germanic", "Proto-Indo-Iranian", "Proto-Tocharian", "Proto-Finnic", "Proto-Sami", "Proto-Ugric", "Proto-Basque", "Proto-Turkic", "Proto-Afro-Asiatic", "Semitic", "Arabic", "Proto-Kartvelian", "Proto-Northwest Caucasian", "Proto-Northeast Caucasian"]
+  Families_list = ["Albanian", "Anatolian", "Armenian", "Ancient Greek", "Hellenic", "Latin", "Proto-Balto-Slavic", "Proto-Slavic", "Proto-Baltic", "Proto-Celtic", "Proto-Germanic", "Proto-Indo-Iranian", "Proto-Tocharian", "Proto-Finnic", "Proto-Sami", "Proto-Ugric", "Proto-Basque", "Proto-Turkic", "Proto-Afro-Asiatic", "Semitic", "Arabic", "Proto-Kartvelian", "Proto-Northwest Caucasian", "Proto-Northeast Caucasian"]
   # "Proto-Italic",
 
   def self.find_all_etymologies_by_area_img(area, word)
@@ -89,8 +89,8 @@ class CreateEtymologyMapService
     # below for just default map
     search_results = Translation.find_all_translations_by_area_europe_map(area, word)
     search_results_lang_array = search_results.map { |lang| lang.abbreviation }.sort
-    europe_map_languages_array = $BaseEuropeMapHash.map { |lang| lang[:abbreviation] }
-    europe_map_color_codes_array = $BaseEuropeMapHash.map { |lang| lang[:color] }
+    europe_map_languages_array = BaseEuropeMapHash.map { |lang| lang[:abbreviation] }
+    europe_map_color_codes_array = BaseEuropeMapHash.map { |lang| lang[:color] }
     result_array = []
 
     # the array that etymologies are checked against to see if they are shared or not.
@@ -159,7 +159,7 @@ class CreateEtymologyMapService
       family_matched_to_ety = false
 
       # Words that confuse the match
-      remove_words = ["a", "all", "alternant", "being", "borrowed", "borrowing", "both", "by", "change", "classical", "conflation", "derivative", "derived", "despite", "diminutive", "either", "ending", "eventually", "fact", "feminine", "form", "hypothetical", "in", "inherited", "itself", "late", "later", "learned", "less", "likely", "literary", "masculine", "medieval", "metathesis", "modification", "of", "or", "origin", "plural", "probably", "prothesis", "reborrowing", "reformation", "regularised", "regularized", "root", "semi-learned", "shortened", "taken", "the", "through", "ultimately", "uncertain", "variant", "verner", "via", "voiced", "vulgar", "with"]
+      remove_words = ["a", "all", "alternant", "being", "borrowed", "borrowing", "both", "by", "change", "classical", "conflation", "derivative", "derived", "despite", "diminutive", "either", "ending", "eventually", "fact", "feminine", "form", "hypothetical", "in", "inherited", "is", "itself", "late", "later", "learned", "less", "likely", "literary", "masculine", "medieval", "metathesis", "modification", "of", "or", "origin", "plural", "probably", "prothesis", "reborrowing", "reformation", "regularised", "regularized", "root", "semi-learned", "shortened", "taken", "the", "through", "ultimately", "uncertain", "variant", "verner", "via", "voiced", "vulgar", "which", "with"]
 
       # Prefer "Latin" instead of "Vulgar Latin".
       # Account for "from Vulgar Latin "xe", from Latin "x" confusion.
@@ -179,7 +179,7 @@ class CreateEtymologyMapService
         clean_etymology = etymology.strip.split(" ").delete_if { |word| remove_words.include?(word.downcase) }.join(" ")
 
         # loop over the families. Try to match wods in clean_etymology to a family name.
-        $Families_list.each do |family|
+        Families_list.each do |family|
           if clean_etymology.downcase.include?("from #{family.downcase}") || clean_etymology.downcase.include?("From #{family.downcase}")
             matching_family = family
             matching_etymology = clean_etymology.slice(0, 1).capitalize + clean_etymology.strip().slice(1..-1)
@@ -187,8 +187,9 @@ class CreateEtymologyMapService
             break
           end
           break if family_matched_to_ety
-        end
-      end
+        end # Families_list.each
+      end # current_etymology_array.each
+
 
       # if !matching_family, it may be new. use the result.family
       if matching_family.nil?
@@ -202,18 +203,9 @@ class CreateEtymologyMapService
 
       # find the index of the current_etymology in etymology_array, if any
       index_in_ety_array = etymology_array.find_index do |item|
-        # (item && item[:etymology].include?(matching_etymology))
-        (item && item[:etymology].parameterize.include?(matching_etymology.parameterize))
+        (item && item[:etymology].include?(matching_etymology))
+        # (item && item[:etymology].parameterize.include?(matching_etymology.parameterize))
       end
-
-      # puts "langauge= #{result.abbreviation}"
-      # puts "etymology= #{result.etymology.slice(0..100)}"
-      # # puts "current_etymology_array= #{current_etymology_array}"
-      # # puts "matching_family= #{matching_family}"
-      # puts "matching_etymology= #{matching_etymology}"
-      # puts "index_in_ety_array= #{index_in_ety_array}"
-      # puts "==============================================================="
-      # puts "\n"
 
       # if result.etymology IS null/nil, append nil as the index and blank as color.
       # NOTHING goes into the etymology_array. bc no ety to begin with
