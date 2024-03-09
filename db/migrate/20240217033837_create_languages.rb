@@ -12,6 +12,7 @@ class CreateLanguages < ActiveRecord::Migration[7.1]
       t.string :area3
       t.text :notes
       t.boolean :has_gender
+      t.string :flag
       t.boolean :alive
 
       t.timestamps
