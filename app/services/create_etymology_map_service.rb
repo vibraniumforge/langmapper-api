@@ -190,7 +190,6 @@ class CreateEtymologyMapService
         end # Families_list.each
       end # current_etymology_array.each
 
-
       # if !matching_family, it may be new. use the result.family
       if matching_family.nil?
         matching_family = result.family
@@ -346,6 +345,7 @@ class CreateEtymologyMapService
   def self.create_logs(search_results, word, area, map_languages, unused_map_languages, unused_search_results, unused_map_languages2, languages_with_an_ety, etymology_array, t1)
     puts "\n"
     puts "#{search_results.length} matching languages in the DB for the word: #{word.upcase} in: #{area}"
+    puts "#{languages_with_an_ety.length} languages in DB with an etymology"
     puts "#{map_languages.length} languages on the map"
     puts "#{unused_map_languages.length} unused languages(on map, in DB, but no etymology)"
     print unused_map_languages
@@ -358,7 +358,7 @@ class CreateEtymologyMapService
       print unused_map_languages2
     end
     puts "\n"
-    puts "#{languages_with_an_ety.length} languages in DB and map"
+
     puts "#{etymology_array.length} <== unique etymologies"
     # puts "#{(My_europe_svg.length - map_languages.length)} languages missing between My_europe_svg and map_languages:"
     # puts "They are: #{My_europe_svg - map_languages} languages"
