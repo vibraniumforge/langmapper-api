@@ -214,7 +214,7 @@ Language.create({ name: "Ainu", abbreviation: "ain", alphabet: "Latn", macrofami
 # Extinct, but famous
 Language.create({ name: "Latin", abbreviation: "la", alphabet: "Latn", macrofamily: "Indo-European", family: "Italic", subfamily: nil, area1: "Europe", area2: "Western Europe", area3: "Italy", notes: nil, has_gender: true, flag: "🇻🇦", alive: false })
 
-Language.create({ name: "Ancient Greek", abbreviation: "grc", alphabet: "Latn", macrofamily: "Indo-European", subfamily: nil, family: "Hellenic", area1: "Europe", area2: "South Europe", area3: nil, notes: nil, has_gender: true, alive: false })
+Language.create({ name: "Ancient Greek", abbreviation: "grc", alphabet: "Latn", macrofamily: "Indo-European", subfamily: nil, family: "Hellenic", area1: "Europe", area2: "South Europe", area3: nil, notes: nil, has_gender: true, flag: "🏛️", alive: false })
 
 Language.create({ name: "Sanskrit", abbreviation: "at", alphabet: "Latn", macrofamily: "Indo-European", family: "Indo-Iranian", subfamily: "Indo-Aryan", area1: "South Asia", area2: nil, area3: nil, notes: nil, has_gender: true, alive: false })
 
@@ -252,7 +252,7 @@ Language.create({ name: "Proto-Turkic", abbreviation: nil, alphabet: "Latn", mac
 
 Language.create({ name: "Proto-Austro-Asiatic", abbreviation: nil, alphabet: "Latn", macrofamily: "Austro-Asiatic", family: nil, subfamily: nil, area1: nil, area2: nil, area3: nil, notes: nil, has_gender: false, alive: false })
 
-# Translation.create({language_id: Language.find_by(name: nil).id, word_id: Word.find_by(name: nil).id, translation: nil, romanization: nil, link: nil, etymology: nil, gender: nil })
+# Translation.create({language_id: Language.find_by(name: nil).id, word_id: Word.find_by(name: nil).id, translation: nil, romanization: nil, link: nil, etymology: nil, flag: nil, gender: nil })
 
 Word.create({ word_name: "gold", definition: "", emoji: "🥇", category: "Elements" })
 Word.create({ word_name: "silver", definition: "", emoji: "🥈", category: "Elements" })
