@@ -159,18 +159,19 @@ class CreateEtymologyMapService
       family_matched_to_ety = false
 
       # Words that confuse the match
-      remove_words = ["a", "all", "alternant", "being", "borrowed", "borrowing", "both", "by", "change", "classical", "conflation", "derivative", "derived", "despite", "diminutive", "either", "ending", "eventually", "fact", "feminine", "form", "hypothetical", "in", "inherited", "is", "itself", "late", "later", "learned", "less", "likely", "literary", "masculine", "medieval", "metathesis", "modification", "of", "or", "origin", "plural", "probably", "prothesis", "reborrowing", "reformation", "regularised", "regularized", "root", "semi-learned", "shortened", "taken", "the", "through", "ultimately", "uncertain", "variant", "verner", "via", "voiced", "vulgar", "which", "with"]
+      remove_words = ["a", "all", "alternant", "being", "borrowed", "borrowing", "both", "by", "change", "classical", "conflation", "derivative", "derived", "despite", "diminutive", "either", "ending", "eventually", "fact", "feminine", "form", "hypothetical", "in", "inherited", "is", "itself", "late", "later", "learned", "less", "likely", "literary", "masculine", "medieval", "metathesis", "modification", "of", "or", "origin", "plural", "probably", "prothesis", "reborrowing", "reformation", "regularised", "regularized", "root", "semi-learned", "shortened", "taken", "the", "through", "ultimately", "uncertain", "variant", "verner", "via", "voiced", "which", "with"]
 
       # Prefer "Latin" instead of "Vulgar Latin".
       # Account for "from Vulgar Latin "xe", from Latin "x" confusion.
-      num_latins = current_etymology_array.select do |item|
-        item.include?("Latin")
-      end.length
-      vulgar_latin_index = current_etymology_array.find_index do |item|
-        item.include?("Vulgar Latin")
-      end
-      if num_latins > 1 && vulgar_latin_index
-        current_etymology_array.delete_at(vulgar_latin_index)
+      if current_etymology_array.length > 0
+        num_latins = current_etymology_array.join(" ").split(" ").select { |word| word == "Latin" }.length
+        has_vulgar_latin = current_etymology_array.join(" ").match?("Vulgar Latin")
+        if num_latins > 1 && has_vulgar_latin
+          current_etymology_array.each do |ety|
+            ety.downcase.gsub!("from vulgar latin ", "")
+            ety.gsub!("Vulgar Latin ", "")
+          end
+        end
       end
 
       # matching logic
