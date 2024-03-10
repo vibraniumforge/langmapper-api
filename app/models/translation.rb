@@ -54,7 +54,7 @@ class Translation < ApplicationRecord
   def self.find_all_translations_by_area_europe_map(area, word_name)
     my_europe_svg = ["ab", "ar", "az", "be", "bg", "br", "ca", "co", "cs", "cy", "da", "de", "el", "en", "es", "et", "eu", "fi", "fo", "fr", "fy", "ga", "gag", "gd", "gl", "hu", "hy", "is", "it", "ka", "kk", "krl", "lb", "lij", "lt", "lv", "mk", "mt", "nap", "nl", "no", "oc", "os", "pl", "pms", "pt", "rm", "ro", "ru", "sc", "scn", "sco", "se", "sh", "sh", "sh", "sk", "sl", "sq", "sv", "tk", "tt", "uk", "vnc", "xal", "gv", "kw"]
     word_id = Word.find_by(word_name: word_name.downcase).id
-    Translation.joins(:language, :word).select("translations.*, languages.*, languages.id as language_id, translations.id as id, words.word_name").where("languages.abbreviation IN (?)", my_europe_svg).where("word_id = ?", word_id).order(:macrofamily, :family, :subfamily)
+    Translation.joins(:language, :word).select("translations.*, languages.*, languages.id as language_id, translations.id as id, words.*").where("languages.abbreviation IN (?)", my_europe_svg).where("word_id = ?", word_id).order(:macrofamily, :family, :subfamily)
   end
 
   # Find a single translation by Word and Language
