@@ -31,3 +31,6 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+
+/public/my_europe_template_copy.svg
