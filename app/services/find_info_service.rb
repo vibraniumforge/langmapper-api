@@ -48,6 +48,8 @@ class FindInfoService
 
     first_table = page.css("td.translations-cell")[0].children.children
 
+    error_hash = {}
+
     all_li_array = []
     first_table.each do |item|
       if item.to_s != "\n"
@@ -69,11 +71,9 @@ class FindInfoService
     # @word = Word.find(word_id)
     # @word.update({ definition: definition })
 
-    if Word.where({ word_name: chosen_word }).exists?
-      return
-    end
-    @word = Word.create({ word_name: chosen_word, definition: definition})
+    @word = Word.find_or_create_by({ word_name: chosen_word })
     word_id = @word.id
+    @word.update({ definition: definition })
 
     # create the English entry first. Can't scrape this the same as other langs.
     Translation.create({ language_id: 1, word_id: word_id, translation: chosen_word, romanization: chosen_word, link: "https://en.wiktionary.org/wiki/#{chosen_word}", etymology: etymology_english, gender: nil })
@@ -96,9 +96,12 @@ class FindInfoService
       etymology = nil
 
       #2 find language_id
+      # find if language name of the li is in languages table in DB.
 
       language_name = li.text.split(":")[0]
-      language_id = all_langs_hash.select { |lang| lang[:name] == language_name }.map { |x| x[:id] }[0]
+      language_id = all_langs_hash.select { |lang| lang[:name] == language_name }&.first&.id
+      # language_id = all_langs_hash.select { |lang| lang[:name] == language_name }.map { |x| x[:id] }[0]
+
       if language_id.nil?
         next
       end
@@ -139,24 +142,51 @@ class FindInfoService
       end
 
       #6 find full_link_eng
-
-      if !li.css("a")[0].nil? && li.css("a")[0]&.attributes["href"]&.value && li.css("a")[0]&.attributes["href"].value.ascii_only?
-        short_link_eng = URI.parse(li.css("a")[0]&.attributes["href"].value).path
+      # => "/wiki/goud#Afrikaans" || nil
+      li_obj = li.css("a")[0]
+      li_obj_val = li_obj ? li_obj&.attributes["href"]&.value : nil
+      if !li_obj_val.nil? && li_obj_val && li_obj_val.ascii_only?
+        short_link_eng = URI.parse(li_obj_val).path
       else
+        error_hash[language_name] = "non-ascii char #{li_obj_val} in #{language_name} short link." unless  ["Norwegian", "Franco-Provençal"].include?(language_name)
         short_link_eng = nil
       end
-      # => "/wiki/goud#Afrikaans" || nil
+      # URI.parse(li.css("a")[0]&.attributes["href"].value).path.gsub!(/å/, 'a')
+      # URI.parse(li.css("a")[0]&.attributes["href"].value.gsub!(/å/, 'a')).path
+
+
 
       if !short_link_eng.nil? && short_link_eng.ascii_only?
         full_link_eng = "https://en.wiktionary.org" << short_link_eng
-        if language_name.include?("'") || language_name.include?("(")
-          etymology_page = nil
-        elsif full_link_eng.ascii_only? && !full_link_eng.include?("&action=edit")
-          etymology_page = Nokogiri::HTML(URI.open(full_link_eng))
-        else
-          etymology_page = nil
-        end
       end
+
+      # exception for non-ascii language_names that always error.
+      # Switch here to ascii (no accents) so that we get the right info.
+      # Then, switch back later so we save the correct link.
+      case language_name
+      when "Norwegian"
+        full_link_eng = "https://en.wiktionary.org/wiki/#{translation}#Norwegian_Bokmal"
+      when "Franco-Provençal"
+        full_link_eng = "https://en.wiktionary.org/wiki/#{translation}#Franco-Provencal"
+      end
+
+      if language_name.include?("'") || language_name.include?("(")
+        etymology_page = nil
+      elsif full_link_eng&.ascii_only? && !full_link_eng.include?("&action=edit")
+        etymology_page = Nokogiri::HTML(URI.open(full_link_eng))
+      else
+        etymology_page = nil
+      end
+
+      # if short_link_eng.nil? || etymology_page.nil?
+      #   if !short_link_eng&.ascii_only?
+      #     error_hash[language_name] = "non-ascii char in #{short_link_eng ? short_link_eng : "nil"}"
+      #   else
+      #     error_hash[language_name] = "short_link_eng is nil:  #{short_link_eng}"
+      #   end
+      #   errors_ar << error_hash
+      # end
+
       #=> "https://en.wiktionary.org/wiki/goud#Afrikaans" || nil
 
       #7 find etymology
@@ -171,8 +201,8 @@ class FindInfoService
       # format the name to the wiktionary style
       language_name_span_id = language_name.split(" ").join("_")
 
-      # exception for Norwegian
-      if language_id == 15
+      # exception for non-ascii language_names
+      if language_name == "Norwegian"
         language_name_span_id = "Norwegian_Bokmål"
       end
 
@@ -215,7 +245,7 @@ class FindInfoService
       end
 
       # account for Galician century in first sentence
-      if language_id == 19 && etymology
+      if language_name == "Galician" && etymology
         split_etymology = etymology.strip.split(".")
         if split_etymology.length > 1
           galician_first_sentence = split_etymology[0]
@@ -225,8 +255,16 @@ class FindInfoService
         end
       end
 
+      # change back to non-ascii to save the link correctly.
+      case language_name
+      when "Norwegian"
+        full_link_eng = "https://en.wiktionary.org/wiki/#{translation}#Norwegian_Bokmål"
+      when "Franco-Provençal"
+        full_link_eng = "https://en.wiktionary.org/wiki/#{translation}#Franco-Provençal"
+      end
+
       # save all 7 things I need
-      @translation = Translation.new({ language_id: language_id, word_id: word_id, translation: translation, romanization: romanization, link: full_link_eng, etymology: etymology, gender: gender })
+      @translation = Translation.new({ language_id: language_id, word_id: word_id, translation: translation, romanization: romanization, gender: gender, link: full_link_eng, etymology: etymology })
       # output this info to the console
       if !full_link_eng.nil? && @translation.save
         puts "\n"
@@ -237,11 +275,14 @@ class FindInfoService
         # puts "================================================================="
         counter += 1
       else
-        puts "Translation NOT saved for #{language_name}"
+        puts "Translation #{translation} NOT saved for #{language_name}"
         errors = @translation.errors.full_messages.join(", ")
         puts "Errors= #{errors}"
-        error_hash = {}
-        error_hash[language_name] = errors
+        if error_hash[language_name]
+          error_hash[language_name] += errors
+        else
+          error_hash[language_name] = errors
+        end
         errors_ar << error_hash
       end
     end
