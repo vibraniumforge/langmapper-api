@@ -8,8 +8,17 @@ class FindInfoService
     query_page = Nokogiri::HTML(URI.open("https://en.wiktionary.org/wiki/#{chosen_word}#Translations"))
 
     # The english language page links to all the other languages.
-    # It needs a separate case to grab its info.
-    etymology_english = query_page.css("[id^='Etymology']")[0].parent.next_element.text
+    # It needs a separate case to find its info.
+    # We have to loop here because sometimes there is an image that gets in the way.
+    # old code,  got the image instead (if it was on the page) below
+    # etymology_english = query_page.css("[id^='Etymology']")[0].parent.next_element.text
+
+    etymology_english_curr_element = query_page.css("[id^='Etymology']")[0].parent
+    while !etymology_english_curr_element.nil? && etymology_english_curr_element.name != "p"
+      etymology_english_curr_element = etymology_english_curr_element.next_element
+    end
+
+    etymology_english = etymology_english_curr_element.text
 
     # The translations table that is needed can be in 1 of 3 places.
     # 1 is on the same page.
@@ -142,19 +151,22 @@ class FindInfoService
       end
 
       #6 find full_link_eng
+      # We want to ignore "&action=edit" because that is an invalid linl.
+      # We also want to ignore non-ascii lang names.
       # => "/wiki/goud#Afrikaans" || nil
       li_obj = li.css("a")[0]
-      li_obj_val = li_obj ? li_obj&.attributes["href"]&.value : nil
-      if !li_obj_val.nil? && li_obj_val && li_obj_val.ascii_only?
-        short_link_eng = URI.parse(li_obj_val).path
-      else
-        error_hash[language_name] = "non-ascii char #{li_obj_val} in #{language_name} short link." unless  ["Norwegian", "Franco-Provençal"].include?(language_name)
-        short_link_eng = nil
+      li_obj_val = !li_obj.nil? ? li_obj&.attributes["href"]&.value : nil
+
+      if !li_obj_val.nil? && !li_obj_val&.include?("&action=edit")
+        if li_obj_val.ascii_only?
+          short_link_eng = URI.parse(li_obj_val).path
+        else
+          error_hash[language_name] = "non-ascii char #{li_obj_val} in #{language_name} short link." unless ["Norwegian", "Franco-Provençal"].include?(language_name)
+          short_link_eng = nil
+        end
       end
       # URI.parse(li.css("a")[0]&.attributes["href"].value).path.gsub!(/å/, 'a')
       # URI.parse(li.css("a")[0]&.attributes["href"].value.gsub!(/å/, 'a')).path
-
-
 
       if !short_link_eng.nil? && short_link_eng.ascii_only?
         full_link_eng = "https://en.wiktionary.org" << short_link_eng
@@ -163,11 +175,14 @@ class FindInfoService
       # exception for non-ascii language_names that always error.
       # Switch here to ascii (no accents) so that we get the right info.
       # Then, switch back later so we save the correct link.
-      case language_name
-      when "Norwegian"
-        full_link_eng = "https://en.wiktionary.org/wiki/#{translation}#Norwegian_Bokmal"
-      when "Franco-Provençal"
-        full_link_eng = "https://en.wiktionary.org/wiki/#{translation}#Franco-Provencal"
+
+      if !li_obj_val.nil? && !li_obj_val&.include?("&action=edit")
+        case language_name
+        when "Norwegian"
+          full_link_eng = "https://en.wiktionary.org/wiki/#{translation}#Norwegian_Bokmal"
+        when "Franco-Provençal"
+          full_link_eng = "https://en.wiktionary.org/wiki/#{translation}#Franco-Provencal"
+        end
       end
 
       if language_name.include?("'") || language_name.include?("(")
@@ -278,12 +293,15 @@ class FindInfoService
         puts "Translation #{translation} NOT saved for #{language_name}"
         errors = @translation.errors.full_messages.join(", ")
         puts "Errors= #{errors}"
-        if error_hash[language_name]
-          error_hash[language_name] += errors
-        else
-          error_hash[language_name] = errors
+
+        if !errors.nil? && errors.length > 0
+          if error_hash[language_name]
+            error_hash[language_name] << ", #{errors}"
+          else
+            error_hash[language_name] = errors
+          end
+          errors_ar << error_hash
         end
-        errors_ar << error_hash
       end
     end
 
