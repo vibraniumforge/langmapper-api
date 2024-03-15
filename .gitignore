@@ -32,5 +32,7 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
-
+# copied images
 /public/my_europe_template_copy.svg
+/public/my_europe_small_copy.svg
+/public/Caucasus-ethnic_en_copy.svg
