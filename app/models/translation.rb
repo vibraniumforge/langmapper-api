@@ -47,6 +47,10 @@ class Translation < ApplicationRecord
 
   # find all the translations of the word_name && are in area1 || area2 || area3.
   def self.find_all_translations_by_area(area, word_name)
+    case area
+    when "Europe small"
+      return find_all_translations_by_area_europe_map_small(area, word_name)
+    end
     word_id = Word.find_by(word_name: word_name.downcase).id
     Translation.joins(:language, :word).select("translations.*, languages.*, languages.id as language_id, translations.id as id, words.word_name").where("area1 = ?", area).or(Translation.joins(:language, :word).select("translations.*, languages.*, languages.id as language_id, translations.id as id, words.word_name").where("area2 = ?", area)).or(Translation.joins(:language, :word).select("translations.*, languages.*, languages.id as language_id, translations.id as id, words.word_name").where("area3 = ?", area)).where("word_id = ?", word_id).order(:macrofamily, :family, :subfamily)
   end
@@ -55,6 +59,12 @@ class Translation < ApplicationRecord
     my_europe_svg = ["ab", "ar", "az", "be", "bg", "br", "ca", "co", "cs", "cy", "da", "de", "el", "en", "es", "et", "eu", "fi", "fo", "fr", "fy", "ga", "gag", "gd", "gl", "hu", "hy", "is", "it", "ka", "kk", "krl", "lb", "lij", "lt", "lv", "mk", "mt", "nap", "nl", "no", "oc", "os", "pl", "pms", "pt", "rm", "ro", "ru", "sc", "scn", "sco", "se", "sh", "sh", "sh", "sk", "sl", "sq", "sv", "tk", "tt", "uk", "vnc", "xal", "gv", "kw"]
     word_id = Word.find_by(word_name: word_name.downcase).id
     Translation.joins(:language, :word).select("translations.*, languages.*, languages.id as language_id, translations.id as id, words.*").where("languages.abbreviation IN (?)", my_europe_svg).where("word_id = ?", word_id).order(:macrofamily, :family, :subfamily)
+  end
+
+  def self.find_all_translations_by_area_europe_map_small(area, word_name)
+    my_europe_small_svg = [ "ar", "be", "bg", "br", "ca", "co", "cs", "cy", "da", "de", "el", "en", "es", "et", "eu", "fi", "fo", "fr", "fy", "ga", "gag", "gd", "gl", "hu", "is", "it", "krl", "lb", "lij", "lt", "lv", "mk", "mt", "nap", "nl", "no", "oc", "pl", "pms", "pt", "rm", "ro", "ru", "sc", "scn", "sco", "se", "sh", "sh", "sh", "sk", "sl", "sq", "sv", "tk", "uk", "vnc", "gv", "kw"]
+    word_id = Word.find_by(word_name: word_name.downcase).id
+    Translation.joins(:language, :word).select("translations.*, languages.*, languages.id as language_id, translations.id as id, words.*").where("languages.abbreviation IN (?)", my_europe_small_svg).where("word_id = ?", word_id).order(:macrofamily, :family, :subfamily)
   end
 
   # Find a single translation by Word and Language
