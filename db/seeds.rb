@@ -367,7 +367,7 @@ Word.create({ word_name: "rose", definition: "", emoji: "🌹", category: "Plant
 Word.create({ word_name: "grass", definition: "", emoji: "", category: "Plants" })
 Word.create({ word_name: "forest", definition: "", emoji: "", category: "Plants" })
 Word.create({ word_name: "leaf", definition: "", emoji: "🍁", category: "Plants" })
-Word.create({ word_name: "seed", definition: "", emoji: "", category: "Plants" })
+# Word.create({ word_name: "seed", definition: "", emoji: "", category: "Plants" })
 Word.create({ word_name: "vine", definition: "", emoji: "", category: "Plants" })
 Word.create({ word_name: "mushroom", definition: "", emoji: "🍄", category: "Plants" })
 
@@ -464,7 +464,7 @@ Word.create({ word_name: "umbrella", definition: "", emoji: "☂️", category: 
 Word.create({ word_name: "thread", definition: "", emoji: "🧵", category: "Textile Technology" })
 Word.create({ word_name: "needle", definition: "", emoji: "🪡", category: "Textile Technology" })
 Word.create({ word_name: "thimble", definition: "", emoji: "", category: "Textile Technology" })
-Word.create({ word_name: "loom", definition: "", emoji: "", category: "Textile Technology" })
+# Word.create({ word_name: "loom", definition: "", emoji: "", category: "Textile Technology" })
 
 Word.create({ word_name: "cloth", definition: "", emoji: "", category: "Textiles" })
 Word.create({ word_name: "silk", definition: "", emoji: "", category: "Textiles" })
