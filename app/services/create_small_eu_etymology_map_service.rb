@@ -75,7 +75,7 @@ class CreateSmallEuEtymologyMapService
   Families_list = ["Albanian", "Anatolian", "Armenian", "Ancient Greek", "Hellenic", "Latin", "Proto-Balto-Slavic", "Proto-Slavic", "Proto-Baltic", "Proto-Celtic", "Proto-Germanic", "Proto-Indo-Iranian", "Proto-Tocharian", "Proto-Finnic", "Proto-Sami", "Proto-Ugric", "Proto-Basque", "Proto-Turkic", "Proto-Afro-Asiatic", "Semitic", "Arabic", "Proto-Kartvelian", "Proto-Northwest Caucasian", "Proto-Northeast Caucasian"]
   # "Proto-Italic",
 
-  def self.find_all_etymologies_by_area_img(area, word)
+  def self.create_small_europe_etymology_map(area, word)
     t1 = Time.now
 
     # blank color
