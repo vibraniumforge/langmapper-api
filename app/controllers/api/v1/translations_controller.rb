@@ -123,6 +123,8 @@ module Api::V1
         @translations = CreateMapService.find_all_translations_by_area_img(params[:area], params[:word])
       when "Caucasus"
         @translations = CreateCaucasusTranslationMapService.create_caucasus_translation_map(params[:area], params[:word])
+      # when "Europe small"
+      #   @translations = CreateSmallEuEtymologyMapService.create_small_europe_etymology_map(params[:area], params[:word])
       end
       # @translations = Translation.find_all_translations_by_area_img(params[:area], params[:word])
       send_file @translations, disposition: :inline
@@ -136,7 +138,15 @@ module Api::V1
     end
 
     def find_all_etymologies_by_area_img
-      @translations = CreateEtymologyMapService.find_all_etymologies_by_area_img(params[:area], params[:word])
+      case params[:area]
+      when "Europe"
+        @translations = CreateMapService.find_all_translations_by_area_img(params[:area], params[:word])
+      when "Caucasus"
+        @translations = CreateCaucasusTranslationMapService.create_caucasus_translation_map(params[:area], params[:word])
+      when "Europe small"
+        @translations = CreateSmallEuEtymologyMapService.create_small_europe_etymology_map(params[:area], params[:word])
+      end
+      # @translations = CreateEtymologyMapService.find_all_etymologies_by_area_img(params[:area], params[:word])
       send_file @translations, disposition: :inline
       # render json: { message: "Translations by etymology image successfully returned.", success: true, data: @translations }, status: 200
     end
