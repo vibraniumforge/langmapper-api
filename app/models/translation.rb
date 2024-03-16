@@ -69,6 +69,6 @@ class Translation < ApplicationRecord
 
   # Find a single translation by Word and Language
   def self.find_translation_by_word_and_language(word_id, language_id)
-    Translation.joins(:language, :word).select("translations.*, languages.name, words.word_name").where("translations.word_id = ?", word_id).where("translations.language_id = ?", language_id)
+    Translation.joins(:language, :word).select("translations.*, languages.name, languages.macrofamily, words.word_name").where("translations.word_id = ?", word_id).where("translations.language_id = ?", language_id)
   end
 end
