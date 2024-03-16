@@ -101,7 +101,7 @@ class FindInfoService
 
     # loop over results and get the info.
     counter = 1
-    all_li_array.each_with_index do |li, index|
+    all_li_array.each do |li|
       etymology = nil
 
       #2 find language_id
@@ -159,7 +159,9 @@ class FindInfoService
 
       if !li_obj_val.nil? && !li_obj_val&.include?("&action=edit")
         if li_obj_val.ascii_only?
-          short_link_eng = URI.parse(li_obj_val).path
+          # short_link_eng = URI.parse(li_obj_val).path
+          # short_link_eng = URI.parse(li_obj_val)
+          short_link_eng = li_obj_val
         else
           error_hash[language_name] = "non-ascii char #{li_obj_val} in #{language_name} short link." unless ["Norwegian", "Franco-Provençal"].include?(language_name)
           short_link_eng = nil
