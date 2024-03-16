@@ -500,7 +500,7 @@ Word.create({ word_name: "Albania", definition: "", emoji: "🇦🇱", category:
 Word.create({ word_name: "Egypt", definition: "", emoji: "🇪🇬", category: "Countries" })
 
 Word.create({ word_name: "Vienna", definition: "", emoji: "", category: "Cities" })
-Word.create({ word_name: "Bratislava", definition: "", emoji: "", category: "Cities" })
+# Word.create({ word_name: "Bratislava", definition: "", emoji: "", category: "Cities" })
 
 Word.create({ word_name: "Sunday", definition: "", emoji: "", category: "Weekdays" })
 Word.create({ word_name: "Monday", definition: "", emoji: "", category: "Weekdays" })
