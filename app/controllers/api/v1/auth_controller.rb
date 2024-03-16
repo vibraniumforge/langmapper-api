@@ -12,7 +12,7 @@ module Api::V1
     # end
 
     def login
-      @user = User.find_by(name: params[:user][:name])
+      @user = User.find_by(username: params[:user][:username])
       if @user && @user.authenticate(params[:user][:password])
         message = "User Authenticated."
         puts "=> #{message}"
@@ -28,7 +28,7 @@ module Api::V1
     private
 
     def user_login_params
-      params.require(:auth).permit(:name, :password)
+      params.require(:auth).permit(:username, :password)
     end
   end
 end
