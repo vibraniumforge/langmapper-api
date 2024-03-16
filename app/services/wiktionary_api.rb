@@ -4,18 +4,24 @@ class WiktionaryApi
   def self.get_info(chosen_word)
     t1 = Time.now
 
-    endpoint = "https://en.wiktionary.org/api/rest_v1/page/html/#{chosen_word}"
+    main_endpoint = "https://en.wiktionary.org/api/rest_v1/page/html/#{chosen_word}"
 
-    query_page = Nokogiri::HTML(URI.open(endpoint))
+    target_page = Nokogiri::HTML(URI.open(main_endpoint))
+
+    saved_main_html_file = File.open("#{Rails.root.to_s}/app/services/saves/#{chosen_word}.html", "w")
+    File.write(saved_main_html_file, target_page)
+    saved_main_html_file.close
+
+    word_page = Nokogiri::HTML(URI.open(saved_main_html_file))
 
     # The english language page links to all the other languages.
     # It needs a separate case to grab its info.
 
-    # Some etymology texts are located differently than others.
-    # query_page.css("[id^='Etymology']")[0].next_element.next_element.next_element.text
-    # vs
-    # query_page.css("[id^='Etymology']")[0].next_element.next_element.text
-    curr_ety_element = query_page.css("[id^='Etymology']")[0]
+    # Some etymology p text elements are located differently than others.
+    # There is sometimes an image in the way. This gets around the image.
+    # word_page.css("[id^='Etymology']")[0].next_element.next_element.next_element.text
+    # vs word_page.css("[id^='Etymology']")[0].next_element.next_element.text
+    curr_ety_element = word_page.css("[id^='Etymology']")[0]
 
     while !curr_ety_element.next_element.nil?
       if curr_ety_element.name == "p"
@@ -35,39 +41,27 @@ class WiktionaryApi
     # There are two different formats of the link that are needed to get to that other page.
     # see which of the two link styles is used on this page
 
-    # path1 = query_page.xpath('//a[contains(text(), "/translations § Noun")]')
-    # # below with space 160 between § Noun
-    # path2 = query_page.xpath("//a[contains(text(), \"/translations §#{160.chr('UTF-8')}Noun\")]")
-    # path3 = query_page.xpath('//a[contains(text(), "/translations#Noun")]')
-
-    query_page.xpath("//a[contains(text(), #{str1})]")
-    query_page.replace(/#{32.chr("UTF-8")}/, " ")
-
     str1 = "#{chosen_word}/translations §#{32.chr("UTF-8")}Noun"
-    path1 = query_page.css('a:contains("/translations §")')[0].text
-    # => "iron/translations § Noun"
-
-    query_page.css('a:contains("/translations §")')[0]["href"]
-    # => "./iron/translations#Noun"
-
-    # does not work
-    path1expand = query_page.css('a:contains("/translations § Noun")')[0].text
-
     str2 = "#{chosen_word}/translations §#{160.chr("UTF-8")}Noun"
-    path2 = query_page.css("a:contains")
+    str3 = "#{chosen_word}/translations#Noun"
+
+    path1 = word_page.css("a:contains('#{str1}')")
+    path2 = word_page.css("a:contains('#{str2}')")
+    path3 = word_page.css("a:contains('#{str3}')")
 
     layout_path = nil
-    if path1.length > 0
-      layout_path = path1[0]["href"]
+    chosen_path = nil
+    if !path1.nil? && path1.length > 0
+      layout_path = path1[0]["href"].gsub!(".", "")
+      chosen_path = 1
     end
-    if path2.length > 0
-      layout_path = path2[0]["href"]
+    if !path2.nil? && path2.length > 0
+      layout_path = path2[0]["href"].gsub!(".", "")
+      chosen_path = 2
     end
-    if path3.length > 0
-      layout_path = path3[0]["href"]
-    end
-    if path4.length > 0
-      layout_path = path4[0]["href"]
+    if !path3.nil? && path3.length > 0
+      layout_path = path3[0]["href"].gsub!(".", "")
+      chosen_path = 3
     end
 
     if layout_path.nil?
@@ -76,13 +70,18 @@ class WiktionaryApi
       translations_page_parsed = Nokogiri::HTML(URI.open(URI.parse(translations_page)))
     else
       # translations_page = "https://en.wiktionary.org/#{layout_path}#Noun"
-      translations_page = "https://en.wiktionary.org/#{layout_path}"
+      translations_page = "https://en.wiktionary.org/wiki#{layout_path}"
       translations_page_parsed = Nokogiri::HTML(URI.open(translations_page))
     end
 
+    saved_translation_html_file = File.open("#{Rails.root.to_s}/app/services/saves/#{chosen_word}-translations.html", "w")
+    File.write(saved_translation_html_file, translations_page_parsed)
+    saved_translation_html_file.close
+
+    translations_page_parsed = Nokogiri::HTML(URI.open(saved_translation_html_file))
+
     if chosen_word == "lead"
-      etymology_english = query_page.css("[id^='Etymology_1']")[0].parent.next_element.text
-      page = Nokogiri::HTML(URI.open("https://en.wiktionary.org/wiki/lead/translations#Etymology_1"))
+      translations_page_parsed = Nokogiri::HTML(URI.open("https://en.wiktionary.org/wiki/lead/translations#Etymology_1"))
     end
 
     yellow_translations_table = translations_page_parsed.css("td.translations-cell")[0].children.children
@@ -154,9 +153,6 @@ class WiktionaryApi
         gender = nil
       end
 
-      if language_name == "Swedish"
-        binding.break
-      end
       #4 find translation
 
       if li.css("span")[0]&.text && li.css("span")[0]&.text != "please add this translation if you can"
@@ -185,39 +181,58 @@ class WiktionaryApi
       end
 
       #6 find full_link_eng
+      # We want to ignore "&action=edit" because that is an invalid linl.
+      # We also want to ignore non-ascii lang names.
+      # => "/wiki/goud#Afrikaans" || nil
+      li_obj = li.css("a")[0]
+      li_obj_val = !li_obj.nil? ? li_obj&.attributes["href"]&.value : nil
 
-      if !li.css("a")[0].nil? && li.css("a")[0]&.attributes["href"]&.value && li.css("a")[0]&.attributes["href"].value.ascii_only?
-        short_link_eng = URI.parse(li.css("a")[0]&.attributes["href"].value).path
-      else
-        short_link_eng = nil
+      if !li_obj_val.nil? && !li_obj_val&.include?("&action=edit")
+        if li_obj_val.ascii_only?
+          # short_link_eng = URI.parse(li_obj_val).path
+          # short_link_eng = URI.parse(li_obj_val)
+          short_link_eng = li_obj_val
+        else
+          error_hash[language_name] = "non-ascii char #{li_obj_val} in #{language_name} short link." unless ["Norwegian", "Franco-Provençal"].include?(language_name)
+          short_link_eng = nil
+        end
       end
       # URI.parse(li.css("a")[0]&.attributes["href"].value).path.gsub!(/å/, 'a')
-
-      # => "/wiki/goud#Afrikaans" || nil
+      # URI.parse(li.css("a")[0]&.attributes["href"].value.gsub!(/å/, 'a')).path
 
       if !short_link_eng.nil? && short_link_eng.ascii_only?
         full_link_eng = "https://en.wiktionary.org" << short_link_eng
-        if language_name.include?("'") || language_name.include?("(")
-          etymology_page = nil
-        elsif full_link_eng.ascii_only? && !full_link_eng.include?("&action=edit")
-          etymology_page = Nokogiri::HTML(URI.open(full_link_eng))
-        else
-          etymology_page = nil
+      end
+
+      # exception for non-ascii language_names that always error.
+      # Switch here to ascii (no accents) so that we get the right info.
+      # Then, switch back later so we save the correct link.
+
+      if !li_obj_val.nil? && !li_obj_val&.include?("&action=edit")
+        case language_name
+        when "Norwegian"
+          full_link_eng = "https://en.wiktionary.org/wiki/#{translation}#Norwegian_Bokmal"
+        when "Franco-Provençal"
+          full_link_eng = "https://en.wiktionary.org/wiki/#{translation}#Franco-Provencal"
         end
       end
 
-      if !short_link_eng.ascii_only?
-        error_hash = {}
-        error_hash[language_name] = "non-ascii char"
-        errors_ar << error_hash
-      end
-
-      if language_name == "Norwegian" && translation.ascii_only?
-        full_link_eng = "https://en.wiktionary.org/wiki/#{translation}#Norwegian_Bokmal"
+      if language_name.include?("'") || language_name.include?("(")
+        etymology_page = nil
+      elsif full_link_eng&.ascii_only? && !full_link_eng.include?("&action=edit")
         etymology_page = Nokogiri::HTML(URI.open(full_link_eng))
+      else
+        etymology_page = nil
       end
 
-      #=> "https://en.wiktionary.org/wiki/goud#Afrikaans" || nil
+      # if short_link_eng.nil? || etymology_page.nil?
+      #   if !short_link_eng&.ascii_only?
+      #     error_hash[language_name] = "non-ascii char in #{short_link_eng ? short_link_eng : "nil"}"
+      #   else
+      #     error_hash[language_name] = "short_link_eng is nil:  #{short_link_eng}"
+      #   end
+      #   errors_ar << error_hash
+      # end
 
       #7 find etymology
       # LOGIC SUMMARY
@@ -316,9 +331,8 @@ class WiktionaryApi
     puts "#{counter} entries saved to DB"
     puts "in #{time.round(2)} seconds"
     puts "Errors: #{errors_ar}"
-    puts "path1 = #{path1}"
-    puts "path2 = #{path2}"
-    puts "path3 = #{path3}"
+    puts "layout_path = #{layout_path}"
+    puts "chosen_path = #{chosen_path}"
     puts "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
   end
 end
