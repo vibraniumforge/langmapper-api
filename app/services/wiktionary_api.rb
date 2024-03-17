@@ -173,7 +173,6 @@ class WiktionaryApi
 
       #5 find romanization
 
-      # if !li.css("span.tr.Latn")[0].nil?
       if !li.css("span.Latn")[0]&.text.nil?
         romanization = li.css("span.Latn")[0].text
       else
@@ -181,8 +180,11 @@ class WiktionaryApi
       end
 
       #6 find full_link_eng
-      # We want to ignore "&action=edit" because that is an invalid linl.
-      # We also want to ignore non-ascii lang names.
+      # We need the link to go to that page and get more info.
+      # And to store as a link.
+
+      # We want to ignore "&action=edit" because that is an invalid link.
+      # We also want to ignore non-ascii lang names, which always error.
       # => "/wiki/goud#Afrikaans" || nil
       li_obj = li.css("a")[0]
       li_obj_val = !li_obj.nil? ? li_obj&.attributes["href"]&.value : nil
@@ -197,8 +199,6 @@ class WiktionaryApi
           short_link_eng = nil
         end
       end
-      # URI.parse(li.css("a")[0]&.attributes["href"].value).path.gsub!(/å/, 'a')
-      # URI.parse(li.css("a")[0]&.attributes["href"].value.gsub!(/å/, 'a')).path
 
       if !short_link_eng.nil? && short_link_eng.ascii_only?
         full_link_eng = "https://en.wiktionary.org" << short_link_eng
@@ -209,20 +209,23 @@ class WiktionaryApi
       # Then, switch back later so we save the correct link.
 
       if !li_obj_val.nil? && !li_obj_val&.include?("&action=edit")
-        case language_name
-        when "Norwegian"
+        if(language_name == "Norwegian") && short_link_eng.include?("å")
           full_link_eng = "https://en.wiktionary.org/wiki/#{translation}#Norwegian_Bokmal"
-        when "Franco-Provençal"
-          full_link_eng = "https://en.wiktionary.org/wiki/#{translation}#Franco-Provencal"
+        # case language_name
+        # when "Norwegian"
+        #   full_link_eng = "https://en.wiktionary.org/wiki/#{translation}#Norwegian_Bokmal"
+        # when "Franco-Provençal"
+        #   full_link_eng = "https://en.wiktionary.org/wiki/#{translation}#Franco-Provencal"
+        # end
         end
       end
 
       if language_name.include?("'") || language_name.include?("(")
         etymology_page = nil
-      elsif full_link_eng&.ascii_only? && !full_link_eng.include?("&action=edit")
+      end
+
+      if full_link_eng.ascii_only? && !full_link_eng.include?("&action=edit")
         etymology_page = Nokogiri::HTML(URI.open(full_link_eng))
-      else
-        etymology_page = nil
       end
 
       # if short_link_eng.nil? || etymology_page.nil?
