@@ -98,7 +98,13 @@ module Api::V1
     end
 
     def find_all_translations_by_area
-      @translations = Translation.find_all_translations_by_area(params[:area], params[:word])
+      case params[:area]
+      when "Europe small"
+        # return find_all_translations_by_area_europe_map_small(area, word_name)
+         @translations = Translation.find_all_translations_by_area_europe_map_small(params[:area], params[:word])
+      when "Europe"
+        @translations = Translation.find_all_translations_by_area(params[:area], params[:word])
+      end
       render json: { message: "All Translations of #{params[:word]} in #{params[:area]} successfully returned.", success: true, data: @translations }, status: 200
     end
 
