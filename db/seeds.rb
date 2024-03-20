@@ -338,6 +338,7 @@ Word.create({ word_name: "olive", definition: "", emoji: "🫒", category: "Food
 Word.create({ word_name: "grape", definition: "", emoji: "🍇", category: "Food" })
 Word.create({ word_name: "peanut", definition: "", emoji: "🥜", category: "Food" })
 Word.create({ word_name: "cherry", definition: "", emoji: "🍒", category: "Food" })
+Word.create({ word_name: "garlic", definition: "", emoji: "🍒", category: "Food" })
 
 Word.create({ word_name: "lemon", definition: "", emoji: "🍋", category: "Citrus" })
 Word.create({ word_name: "lime", definition: "", emoji: "", category: "Citrus" })
@@ -464,7 +465,7 @@ Word.create({ word_name: "umbrella", definition: "", emoji: "☂️", category: 
 Word.create({ word_name: "thread", definition: "", emoji: "🧵", category: "Textile Technology" })
 Word.create({ word_name: "needle", definition: "", emoji: "🪡", category: "Textile Technology" })
 Word.create({ word_name: "thimble", definition: "", emoji: "", category: "Textile Technology" })
-# Word.create({ word_name: "loom", definition: "", emoji: "", category: "Textile Technology" })
+Word.create({ word_name: "loom", definition: "", emoji: "", category: "Textile Technology" })
 
 Word.create({ word_name: "cloth", definition: "", emoji: "", category: "Textiles" })
 Word.create({ word_name: "silk", definition: "", emoji: "", category: "Textiles" })
