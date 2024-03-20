@@ -81,7 +81,7 @@ class CreateSmallEuEtymologyMapService
     # blank color
     blank_color = "ffffff"
 
-    # below for just default map
+    # below for this map
     search_results = Translation.find_all_translations_by_area_europe_map_small(area, word)
     search_results_lang_array = search_results.map { |lang| lang.abbreviation }.sort
     europe_map_languages_array = BaseEuropeSmallMapHash.map { |lang| lang[:abbreviation] }
@@ -104,6 +104,7 @@ class CreateSmallEuEtymologyMapService
     # doc = File.open("#{Rails.root.to_s}/public/my_europe_template.svg"){ |f| Nokogiri::XML(f) }
     # map_languages = doc.css("tspan:contains('$')").text().split("$").sort.reject!{ |c| c.empty? }
 
+    # loop over the map and find every language abbreviation on it.
     map_file = File.open("#{Rails.root.to_s}/public/my_europe_small.svg")
     map_code = map_file.read
     map_languages = map_code.scan(/[$][a-z]{2,3}/mi).sort.map { |x| x.gsub(/[$]/i, "") }
@@ -202,8 +203,8 @@ class CreateSmallEuEtymologyMapService
         # (item && item[:etymology].parameterize.include?(matching_etymology.parameterize))
       end
 
-      # if result.etymology IS null/nil, append nil as the index and blank as color.
-      # NOTHING goes into the etymology_array. bc no ety to begin with
+      # if result.etymology IS null/nil, append nil as the index and blank its color.
+      # NOTHING goes into the etymology_array. because no ety to begin with
       if result.etymology.nil? || result.etymology == "Null"
         edited_result = romanization_helper(result)[0].to_h
         edited_result[:index] = nil
@@ -313,7 +314,10 @@ class CreateSmallEuEtymologyMapService
 
     pp etymology_array.sort { |a, b| a[:family] <=> b[:family] }
 
+    # On map, but no translation in DB.
     unused_search_results = (map_languages - search_results_lang_array).sort
+
+    # Translation in DB, but not on map.
     unused_map_languages2 = (search_results_lang_array - map_languages).sort
 
     create_logs(search_results, word, area, map_languages, unused_map_languages, unused_search_results, unused_map_languages2, languages_with_an_ety, etymology_array, t1)
@@ -340,9 +344,10 @@ class CreateSmallEuEtymologyMapService
 
   def self.create_logs(search_results, word, area, map_languages, unused_map_languages, unused_search_results, unused_map_languages2, languages_with_an_ety, etymology_array, t1)
     puts "\n"
-    puts "#{search_results.length} matching languages in the DB for the word: #{word.upcase} in: #{area}"
+    puts "#{map_languages.length} languages on the #{area} map"
+    puts "#{search_results.length} matching languages in the DB for the word: #{word.upcase} in: #{area.upcase}"
     puts "#{languages_with_an_ety.length} languages in DB with an etymology"
-    puts "#{map_languages.length} languages on the map"
+
     puts "#{unused_map_languages.length} unused languages(on map, in DB, but no etymology)"
     print unused_map_languages
     puts "\n"
