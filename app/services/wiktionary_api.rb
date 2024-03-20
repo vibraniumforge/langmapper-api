@@ -1,12 +1,29 @@
 class WiktionaryApi
   require "open-uri"
 
+  # We need to go to 3 pages to get all the info
+  # First page, https://en.wiktionary.org/wiki/gold
+  # get English etymology, and proper link to second page, of 3 possible links. 1 link is on the same page, but we still need it.
+  # Second page, https://en.wiktionary.org/wiki/gold/translations#Noun, (2 of the 3 links)
+  # get the yellow translations table.
+  # get the Word definition on this table
+  # get the list of all translations on this table.
+  # loop over every translation
+  # get translation, romanization, gender, and full link.
+  # full link is stored for the icon
+  # and full link is followed to page 3
+  # Third page, https://en.wiktionary.org/wiki/%D0%B0%D1%85%D1%8C%D1%8B#Abkhaz, get the etymology.
+  #
+  # Save definition to Word.
+  # Save 7 fields to Translation.
+  # save word_id (query from our db) and language_id (query from our db),
+  # save translation, romanization, gender, link, and etymology to Translation.
   def self.get_info(chosen_word)
     t1 = Time.now
 
-    main_endpoint = "https://en.wiktionary.org/api/rest_v1/page/html/#{chosen_word}"
+    main_page_endpoint = "https://en.wiktionary.org/api/rest_v1/page/html/#{chosen_word}"
 
-    target_page = Nokogiri::HTML(URI.open(main_endpoint))
+    target_page = Nokogiri::HTML(URI.open(main_page_endpoint))
 
     saved_main_html_file = File.open("#{Rails.root.to_s}/app/services/saves/#{chosen_word}.html", "w")
     File.write(saved_main_html_file, target_page)
@@ -20,7 +37,7 @@ class WiktionaryApi
     # Some etymology p text elements are located differently than others.
     # There is sometimes an image in the way. This gets around the image.
     # word_page.css("[id^='Etymology']")[0].next_element.next_element.next_element.text
-    # vs word_page.css("[id^='Etymology']")[0].next_element.next_element.text
+    # vs. word_page.css("[id^='Etymology']")[0].next_element.next_element.text
     curr_ety_element = word_page.css("[id^='Etymology']")[0]
 
     while !curr_ety_element.next_element.nil?
@@ -34,10 +51,10 @@ class WiktionaryApi
     etymology_english = curr_ety_element.text
 
     # The translations table that is needed can be in 1 of 3 places.
-    # 1 is on the same page.
-    # 2 is /translations § Noun
-    # 3 is /translations#Noun
-    # If it has either of the 2 links, it is on another page.
+    # 1 is on the same page, in a different section.
+    # 2 on a new page, '/translations § Noun'
+    # 3 on a new page, '/translations#Noun'
+    # If it has either of # 2 or #3, it is on another page.
     # There are two different formats of the link that are needed to get to that other page.
     # see which of the two link styles is used on this page
 
@@ -80,11 +97,22 @@ class WiktionaryApi
 
     translations_page_parsed = Nokogiri::HTML(URI.open(saved_translation_html_file))
 
-    if chosen_word == "lead"
+    # for words that are not the top noun definition
+    case chosen_word
+    when "lead"
       translations_page_parsed = Nokogiri::HTML(URI.open("https://en.wiktionary.org/wiki/lead/translations#Etymology_1"))
     end
 
-    yellow_translations_table = translations_page_parsed.css("td.translations-cell")[0].children.children
+    correct_index = 0
+    # specific exceptions for certain words
+    case chosen_word
+    when "grapefruit", "blueberry", "mulberry", "orange", "raspberry", "loom"
+      correct_index = 1
+    when "lime"
+      correct_index = 6
+    end
+
+    yellow_translations_table = translations_page_parsed.css("td.translations-cell")[correct_index].children.children
 
     all_li_array = []
     yellow_translations_table.each do |list_item|
@@ -94,7 +122,7 @@ class WiktionaryApi
     end
 
     # NEED TO FIND for word: definition
-    definition = translations_page_parsed.css("table.translations")[0].attributes["data-gloss"].value
+    definition = translations_page_parsed.css("table.translations")[correct_index].attributes["data-gloss"].value
 
     # NEED TO FIND for translation: #1 word_id, #2 language_id, #
     # 3 gender, #4 translation, # 5 romanization,
@@ -180,8 +208,8 @@ class WiktionaryApi
       end
 
       #6 find full_link_eng
-      # We need the link to go to that page and get more info.
-      # And to store as a link.
+      # And to store as a link for #6.
+      # We need the link to go to that page and get more info for #7.
 
       # We want to ignore "&action=edit" because that is an invalid link.
       # We also want to ignore non-ascii lang names, which always error.
@@ -209,14 +237,14 @@ class WiktionaryApi
       # Then, switch back later so we save the correct link.
 
       if !li_obj_val.nil? && !li_obj_val&.include?("&action=edit")
-        if(language_name == "Norwegian") && short_link_eng.include?("å")
+        if (language_name == "Norwegian") && short_link_eng.include?("å")
           full_link_eng = "https://en.wiktionary.org/wiki/#{translation}#Norwegian_Bokmal"
-        # case language_name
-        # when "Norwegian"
-        #   full_link_eng = "https://en.wiktionary.org/wiki/#{translation}#Norwegian_Bokmal"
-        # when "Franco-Provençal"
-        #   full_link_eng = "https://en.wiktionary.org/wiki/#{translation}#Franco-Provencal"
-        # end
+          # case language_name
+          # when "Norwegian"
+          #   full_link_eng = "https://en.wiktionary.org/wiki/#{translation}#Norwegian_Bokmal"
+          # when "Franco-Provençal"
+          #   full_link_eng = "https://en.wiktionary.org/wiki/#{translation}#Franco-Provencal"
+          # end
         end
       end
 
@@ -224,18 +252,21 @@ class WiktionaryApi
         etymology_page = nil
       end
 
-      if full_link_eng.ascii_only? && !full_link_eng.include?("&action=edit")
-        etymology_page = Nokogiri::HTML(URI.open(full_link_eng))
-      end
+      if full_link_eng&.ascii_only? && !full_link_eng.include?("&action=edit")
+        # etymology_page = Nokogiri::HTML(URI.open(full_link_eng))
+        new_link = full_link_eng.split("/").last
+        etymology_endpoint = "https://en.wiktionary.org/api/rest_v1/page/html/#{new_link}"
+        # if !short_link_eng.include?(translation)
+        #   etymology_endpoint = "#{translation}##{language_name}"
+        # end
+        #
+        if short_link_eng.split("").first == "#"
+          new_link = "#{translation}##{language_name}"
+          etymology_endpoint = "https://en.wiktionary.org/api/rest_v1/page/html/#{new_link}"
+        end
 
-      # if short_link_eng.nil? || etymology_page.nil?
-      #   if !short_link_eng&.ascii_only?
-      #     error_hash[language_name] = "non-ascii char in #{short_link_eng ? short_link_eng : "nil"}"
-      #   else
-      #     error_hash[language_name] = "short_link_eng is nil:  #{short_link_eng}"
-      #   end
-      #   errors_ar << error_hash
-      # end
+        etymology_page = Nokogiri::HTML(URI.open(etymology_endpoint))
+      end
 
       #7 find etymology
       # LOGIC SUMMARY
@@ -254,37 +285,85 @@ class WiktionaryApi
         language_name_span_id = "Norwegian_Bokmål"
       end
 
-      # if the page exists, and the page has the language on it, and there is an etymology element
+      #       # if the page exists, and the page has the language id on it, and there is an etymology element length
+      #       if !etymology_page.nil? && etymology_page.css("[id=#{language_name_span_id}]").length > 0 && (etymology_page.css("[id^='Etymology']").length > 0 || etymology_page.css("[id^='Etymology_1']").length > 0)
+
+      #         # current_element is now the H3 with text and ID "Etymology"
+      #         # current_element = etymology_page.css("[id=#{language_name_span_id}]")[0]&.parent.next_element
+      #         current_element = etymology_page.css("[id=#{language_name_span_id}]")[0]
+
+      #         # If there is a current element, I need the current element to not be a h2, because that is my stop sign.
+      #         # Some pages have another h2 beneath with an etymology from another lang. This is not right. This way, the next etymology overwrites the first one.
+      #         # NULL goes in the DB, which is right, but an incorrect value.
+
+      #         #  begin the while loop down.
+      #         while !current_element.nil? && current_element.name != "p"
+      #           # etymology_page.css("[id=#{language_name_span_id}]")[0].parent.children[3].children[2].text <= ety is here
+      #           # or here: current_element.next_element.next_element.children[2].text
+
+      #           # if there is an etymology H3 that has info, do the while loop
+      #           if current_element.name == "h3" && current_element.text.include?("Etymology") && !current_element.next_element.text.include?("(This etymology is missing or incomplete.")
+
+      #             # usually current_element is a H3 with id=etymology, then the next p tag that has the etymology.
+      #             # But not always. This gets the h3 tag, and loops until it finds the p tag, THEN takes the value.
+
+      #             # Loop until the p is found. This ignores random divs that are sometimes there.
+
+      #             # while !current_element.nil? && current_element.name != "p" && current_element.name != "div"
+      #             while !current_element.nil? && current_element.name != "p"
+
+      #               current_element = current_element.next_element
+      #             end
+      #             # the loop is over. This is the p. Get .text.strip and break the loop
+      #             etymology = current_element.text.strip
+      #             break
+      #           end
+
+      #           # if there is not the etymology H3 that has info, keep incrementing
+      #           current_element = current_element.next_element
+      #         end
+      #         # there is no etymology. Set it to nil
+      #       else
+      #         etymology = nil
+      #       end
+
+      # if the page exists, and the page has the language id on it, and there is an etymology element length
       if !etymology_page.nil? && etymology_page.css("[id=#{language_name_span_id}]").length > 0 && (etymology_page.css("[id^='Etymology']").length > 0 || etymology_page.css("[id^='Etymology_1']").length > 0)
 
         # current_element is now the H3 with text and ID "Etymology"
-        current_element = etymology_page.css("[id=#{language_name_span_id}]")[0]&.parent.next_element
+        # current_element = etymology_page.css("[id=#{language_name_span_id}]")[0]&.parent.next_element
+        current_element = etymology_page.css("[id=#{language_name_span_id}]")[0]
 
         # If there is a current element, I need the current element to not be a h2, because that is my stop sign.
         # Some pages have another h2 beneath with an etymology from another lang. This is not right. This way, the next etymology overwrites the first one.
         # NULL goes in the DB, which is right, but an incorrect value.
 
-        #  begin the while loop down.
-        while !current_element.nil? && current_element.name != "h2"
+        #  begin the while loop.
+        while !current_element.nil?
+
+          # ety is here => etymology_page.css("[id=#{language_name_span_id}]")[0].parent.children[3].children[2].text
+          # or here => current_element.next_element.next_element.children[2].text
 
           # if there is an etymology H3 that has info, do the while loop
-          if current_element.name == "h3" && current_element.text.include?("Etymology") && !current_element.next_element.text.include?("(This etymology is missing or incomplete.")
+          if current_element.text.include?("Etymology") && !current_element.next_element.text.include?("(This etymology is missing or incomplete.")
 
             # usually current_element is a H3 with id=etymology, then the next p tag that has the etymology.
             # But not always. This gets the h3 tag, and loops until it finds the p tag, THEN takes the value.
 
             # Loop until the p is found. This ignores random divs that are sometimes there.
-
             # while !current_element.nil? && current_element.name != "p" && current_element.name != "div"
-            while !current_element.nil? && current_element.name != "p"
-              current_element = current_element.next_element
+            current_child = current_element.children[0]
+            while !current_element.nil? && !current_element.text.nil? && !current_child.nil? && !current_child.text.nil? && current_child.name != "p"
+              current_child = current_child.next_element
             end
             # the loop is over. This is the p. Get .text.strip and break the loop
-            etymology = current_element.text.strip
+            if !current_child.nil? && !current_child.text.nil? && !current_child.text.include?("(This etymology is missing")
+              etymology = current_child.text.strip
+            end
             break
           end
 
-          # if there is not the etymology H3 that has info, keep incrementing
+          # if there is not the etymology H3 that has the info, keep incrementing
           current_element = current_element.next_element
         end
         # there is no etymology. Set it to nil
