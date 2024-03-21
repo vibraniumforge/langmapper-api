@@ -106,7 +106,7 @@ class WiktionaryApi
     correct_index = 0
     # specific exceptions for certain words
     case chosen_word
-    when "grapefruit", "blueberry", "mulberry", "orange", "raspberry", "loom"
+    when "grapefruit", "blueberry", "mulberry", "orange", "raspberry", "loom", "seed"
       correct_index = 1
     when "lime"
       correct_index = 6
@@ -345,7 +345,7 @@ class WiktionaryApi
           # or here => current_element.next_element.next_element.children[2].text
 
           # if there is an etymology H3 that has info, do the while loop
-          if current_element.text.include?("Etymology") && !current_element.next_element.text.include?("(This etymology is missing or incomplete.")
+          if current_element.text.include?("Etymology") && !current_element&.next_element&.text&.include?("(This etymology is missing or incomplete.")
 
             # usually current_element is a H3 with id=etymology, then the next p tag that has the etymology.
             # But not always. This gets the h3 tag, and loops until it finds the p tag, THEN takes the value.
@@ -396,7 +396,7 @@ class WiktionaryApi
       else
         puts "Translation NOT saved for #{language_name}"
         errors = @translation.errors.full_messages.join(", ")
-        puts "Errors= #{errors}"
+        # puts "Errors= #{errors}"
         error_hash = {}
         error_hash[language_name] = errors
         errors_ar << error_hash
