@@ -1,8 +1,4 @@
 class CreateSmallEuEtymologyMapService
-
-  # 63 total from origial map. 1 dupe of sh.
-  # I added "kw", "gv"
-
   BaseEuropeSmallMapHash = [
     # { name: "Abkhaz", abbreviation: "ab", color: "168d4f" },
     { name: "Arabic", abbreviation: "ar", color: "ffffb1" },
@@ -72,7 +68,7 @@ class CreateSmallEuEtymologyMapService
   ]
 
   # This is what I will divide by.
-  Families_list = ["Albanian", "Anatolian", "Armenian", "Ancient Greek", "Hellenic", "Latin", "Proto-Balto-Slavic", "Proto-Slavic", "Proto-Baltic", "Proto-Celtic", "Proto-Germanic", "Proto-Indo-Iranian", "Proto-Tocharian", "Proto-Finnic", "Proto-Sami", "Proto-Ugric", "Proto-Basque", "Proto-Turkic", "Proto-Afro-Asiatic", "Semitic", "Arabic", "Proto-Kartvelian", "Proto-Northwest Caucasian", "Proto-Northeast Caucasian"]
+  Families_list = ["Albanian", "Anatolian", "Armenian", "Ancient Greek", "Hellenic", "Latin", "Proto-Balto-Slavic", "Proto-Slavic", "Proto-Baltic", "Proto-Brythonic", "Proto-Celtic", "Proto-Germanic", "Proto-Indo-Iranian", "Proto-Tocharian", "Proto-Finnic", "Proto-Sami", "Proto-Ugric", "Proto-Basque", "Proto-Turkic", "Proto-Afro-Asiatic", "Semitic", "Arabic", "Proto-Kartvelian", "Proto-Northwest Caucasian", "Proto-Northeast Caucasian"]
   # "Proto-Italic",
 
   def self.create_small_europe_etymology_map(area, word)
@@ -98,11 +94,6 @@ class CreateSmallEuEtymologyMapService
 
     languages_with_an_ety = []
     array_counter = 0
-
-    #<Nokogiri::XML::Attr:0x3fc15a080254 name="style" value="fill:#ffffb1;fill-opacity:1;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1">
-
-    # doc = File.open("#{Rails.root.to_s}/public/my_europe_template.svg"){ |f| Nokogiri::XML(f) }
-    # map_languages = doc.css("tspan:contains('$')").text().split("$").sort.reject!{ |c| c.empty? }
 
     # loop over the map and find every language abbreviation on it.
     map_file = File.open("#{Rails.root.to_s}/public/my_europe_small.svg")
@@ -139,23 +130,21 @@ class CreateSmallEuEtymologyMapService
         next
       end
 
-      # prev Regexes
-      # (/ *, *(?=[^\)]*?(?:\(|$))/) split on commas
-      # gsub(/\[.*?\]/, "") => remove space + brackets and their contents
-      # gsub(/\s\(.*?\)/, '') => remove space + parenthesis and their contents
-      # remove everything after first sentence. Split on commas.
-      # current_etymology_array = result.etymology.split(".")[0].split(/ *, *(?=[^\)]*?(?:\(|$))/)
-      # current_etymology_array = result.etymology.gsub(/\(.*?\)/, '').split(".")[0].split(/ *, *(?=[^\)]*?(?:\(|$))/)
-      # current_etymology_array = result.etymology.gsub(/\s\(.*?\)/, "").gsub(/\s\[.*?\]/, "").split(".")[0].split(/\s*[,;]\s*/)
-      # current_etymology_array = result.etymology.gsub(/\s\(.*?\)/, "").gsub(/\(.*\)/, "").gsub(/\(.*\)/, "").split(".")[0].split(/\s*[,;]\s*/)
-      current_etymology_array = result.etymology.gsub(/\[.*?\]|\s\[.*?\]|\(.*?\)|\s\(.*?\)/, "").split(".")[0].split(/\s*[,;]\s*/)
+      # Regex
+      # anything in braces \[.*?\]
+      # anything with a space, then braces \s\[.*?\]
+      # sub any thing in parens \(.*?\)
+      # anything with a space, then parens |\s\(.*?\)
+      # anything with parens, then a space: \s\(.*?\)\s*
+      # split on the space, comma/semicolon, space \s*[,;]\s*
+      current_etymology_array = result.etymology.gsub(/\[.*?\]|\s\[.*?\]|\(.*?\)|\s\(.*?\)|\s\(.*?\)\s*/, "").split(".")[0].split(/\s*[,;]\s*/)
 
       matching_family = nil
       matching_etymology = nil
       family_matched_to_ety = false
 
       # Words that confuse the match
-      remove_words = ["a", "all", "already", "alternant", "being", "borrowed", "borrowing", "both", "by", "change", "classical", "conflation", "derivative", "derived", "despite", "deviation", "diminutive", "either", "ending", "eventually", "fact", "feminine", "form", "hypothetical", "in", "inherited", "is", "itself", "late", "later", "learned", "less", "likely", "literary", "masculine", "medieval", "metathesis", "modification", "of", "or", "origin", "plural", "probably", "prothesis", "reborrowing", "reformation", "regularised", "regularized", "root", "semi-learned", "shortened", "sonorized", "taken", "the", "through", "ultimately", "uncertain", "variant", "verner", "via", "voiced", "which", "with"]
+      remove_words = ["a", "an", "all", "already", "alternant", "being", "borrowed", "borrowing", "both", "by", "change", "classical", "conflation", "derivative", "derived", "despite", "deviation", "diminutive", "early", "either", "ending", "eventually", "fact", "feminine", "form", "hypothetical", "in", "inherited", "is", "itself", "late", "later", "learned", "less", "likely", "literary", "masculine", "medieval", "metathesis", "modification", "of", "or", "origin", "plural", "probably", "prothesis", "reborrowing", "reformation", "regularised", "regularized", "root", "semi-learned", "shortened", "sonorized", "taken", "the", "through", "ultimately", "uncertain", "variant", "verner", "via", "voiced", "which", "with"]
 
       # Prefer "Latin" instead of "Vulgar Latin".
       # Account for "from Vulgar Latin "xe", from Latin "x" confusion.
@@ -173,6 +162,9 @@ class CreateSmallEuEtymologyMapService
       # matching logic
       current_etymology_array.each do |etymology|
         # clean the current etymology, one item in the current_etymology_array
+        if etymology.match?(160.chr("UTF-8"))
+          etymology.gsub!(160.chr("UTF-8"), " ")
+        end
         clean_etymology = etymology.strip.split(" ").delete_if { |word| remove_words.include?(word.downcase) }.join(" ")
 
         # loop over the families. Try to match wods in clean_etymology to a family name.
