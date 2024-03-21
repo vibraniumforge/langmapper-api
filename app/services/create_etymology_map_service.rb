@@ -1,5 +1,5 @@
 class CreateEtymologyMapService
-  BaseEuropeMapHash = [
+  BaseEuropeMapInfo = [
     { name: "Abkhaz", abbreviation: "ab", color: "168d4f" },
     { name: "Arabic", abbreviation: "ar", color: "ffffb1" },
     { name: "Azerbaijani", abbreviation: "az", color: "d45500" },
@@ -67,27 +67,132 @@ class CreateEtymologyMapService
     { name: "Cornish", abbreviation: "kw", color: "00ff01" },
   ]
 
-  # # The $___ from my_europe_template.svg
-  # My_europe_svg = ["ab", "ar", "az", "be", "bg", "br", "ca", "co", "cs", "cy", "da", "de", "el", "en", "es", "et", "eu", "fi", "fo", "fr", "fy", "ga", "gag", "gd", "gl", "hu", "hy", "is", "it", "ka", "kk", "krl", "lb", "lij", "lt", "lv", "mk", "mt", "nap", "nl", "no", "oc", "os", "pl", "pms", "pt", "rm", "ro", "ru", "sc", "scn", "sco", "se", "sh", "sk", "sl", "sq", "sv", "tk", "tt", "uk", "vnc", "xal", "gv", "kw"]
-  # # 65 total, with 2 dupe "sh" 63
-  # # I added "kw", "gv"
+  BaseEuropeSmallMapInfo = [
+    # { name: "Abkhaz", abbreviation: "ab", color: "168d4f" },
+    { name: "Arabic", abbreviation: "ar", color: "ffffb1" },
+    # { name: "Azerbaijani", abbreviation: "az", color: "d45500" },
+    { name: "Belarussian", abbreviation: "be", color: "b5ff64" },
+    { name: "Bulgarian", abbreviation: "bg", color: "36ae22" },
+    { name: "Breton", abbreviation: "br", color: "00ff00" },
+    { name: "Catalan", abbreviation: "ca", color: "00ffff" },
+    { name: "Corsican", abbreviation: "co", color: "c0003c" },
+    { name: "Czech", abbreviation: "cs", color: "00cb60" },
+    { name: "Welsh", abbreviation: "cy", color: "00b23e" },
+    { name: "Danish", abbreviation: "da", color: "ff5555" },
+    { name: "German", abbreviation: "de", color: "d09999" },
+    { name: "Greek", abbreviation: "el", color: "ffff00" },
+    { name: "English", abbreviation: "en", color: "ffaaaa" },
+    { name: "Spanish", abbreviation: "es", color: "acd8ed" },
+    { name: "Estonian", abbreviation: "et", color: "b7c8be" },
+    { name: "Basque", abbreviation: "eu", color: "ffd42a" },
+    { name: "Finnish", abbreviation: "fi", color: "6f997a" },
+    { name: "Faroese", abbreviation: "fo", color: "ff0000" },
+    { name: "French", abbreviation: "fr", color: "53bbb5" },
+    { name: "West Frisian", abbreviation: "fy", color: "d66c74" },
+    { name: "Irish", abbreviation: "ga", color: "169b62" },
+    { name: "Gagauz", abbreviation: "gag", color: "c837ab" },
+    { name: "Scottish Gaelic", abbreviation: "gd", color: "ff7f2a" },
+    { name: "Galician", abbreviation: "gl", color: "00d4aa" },
+    { name: "Hungarian", abbreviation: "hu", color: "ac9d93" },
+    # { name: "Armenian", abbreviation: "hy", color: "008080" },
+    { name: "Icelandic", abbreviation: "is", color: "f19076" },
+    { name: "Italian", abbreviation: "it", color: "7bafe0" },
+    # { name: "Georgian", abbreviation: "ka", color: "f4e3d7" },
+    # { name: "Kazakh", abbreviation: "kk", color: "deaa87" },
+    { name: "Karelian", abbreviation: "krl", color: "93ac93" },
+    { name: "Luxembourgish", abbreviation: "lb", color: "55ddff" },
+    { name: "Ligurian", abbreviation: "lij", color: "f2003c" },
+    { name: "Lithuanian", abbreviation: "lt", color: "e9afdd" },
+    { name: "Latvian", abbreviation: "lv", color: "de87cd" },
+    { name: "Macedonian", abbreviation: "mk", color: "71c837" },
+    { name: "Maltese", abbreviation: "mt", color: "a0892c" },
+    { name: "Neapolitan", abbreviation: "nap", color: "f5003c" },
+    { name: "Dutch", abbreviation: "nl", color: "f4d7d7" },
+    { name: "Norwegian", abbreviation: "no", color: "ff8080" },
+    { name: "Occitan", abbreviation: "oc", color: "168d5f" },
+    # { name: "Ossetian", abbreviation: "os", color: "985fd3" },
+    { name: "Polish", abbreviation: "pl", color: "7ecb60" },
+    { name: "Piedmontese", abbreviation: "pms", color: "f2d53c" },
+    { name: "Portuguese", abbreviation: "pt", color: "00d4d4" },
+    { name: "Romansch", abbreviation: "rm", color: "008079" },
+    { name: "Romanian", abbreviation: "ro", color: "aaccff" },
+    { name: "Russian", abbreviation: "ru", color: "72ff00" },
+    { name: "Sardinian", abbreviation: "sc", color: "c0ee3c" },
+    { name: "Sicilian", abbreviation: "scn", color: "cc003c" },
+    { name: "Scots", abbreviation: "sco", color: "168df0" },
+    { name: "Northern Sami", abbreviation: "se", color: "cccccc" },
+    { name: "Serbo-Croatian", abbreviation: "sh", color: "abc837" },
+    { name: "Slovak", abbreviation: "sk", color: "42f460" },
+    { name: "Slovene", abbreviation: "sl", color: "81c98d" },
+    { name: "Albanian", abbreviation: "sq", color: "a0856c" },
+    { name: "Swedish", abbreviation: "sv", color: "ffb380" },
+    { name: "Turkish", abbreviation: "tk", color: "cc9e4c" },
+    # { name: "Tatar", abbreviation: "tt", color: "c7a25f" },
+    { name: "Ukranian", abbreviation: "uk", color: "c1ff00" },
+    { name: "Venetian", abbreviation: "vnc", color: "f28d3c" },
+    # { name: "Kalmyk", abbreviation: "xal", color: "d34d5f" },
+    { name: "Manx", abbreviation: "gv", color: "00ff02" },
+    { name: "Cornish", abbreviation: "kw", color: "00ff01" },
+  ]
 
   # This is what I will divide by.
   Families_list = ["Albanian", "Anatolian", "Armenian", "Ancient Greek", "Hellenic", "Latin", "Proto-Balto-Slavic", "Proto-Slavic", "Proto-Baltic", "Proto-Brythonic", "Proto-Celtic", "Proto-Germanic", "Proto-Indo-Iranian", "Proto-Tocharian", "Proto-Finnic", "Proto-Sami", "Proto-Ugric", "Proto-Basque", "Proto-Turkic", "Proto-Afro-Asiatic", "Semitic", "Arabic", "Proto-Kartvelian", "Proto-Northwest Caucasian", "Proto-Northeast Caucasian"]
   # "Proto-Italic",
 
-  def self.find_all_etymologies_by_area_img(area, word)
+  def self.create_etymology_map(area, word)
     t1 = Time.now
 
-    # blank color
+    # blank color for missing langs/etys.
     blank_color = "ffffff"
 
-    # below for just default map
-    search_results = Translation.find_all_translations_by_area_europe_map(area, word)
-    search_results_lang_array = search_results.map { |lang| lang.abbreviation }.sort
-    europe_map_languages_array = BaseEuropeMapHash.map { |lang| lang[:abbreviation] }
-    europe_map_color_codes_array = BaseEuropeMapHash.map { |lang| lang[:color] }
+    # logic to switch by input area
+    #
+    #
+
+
+    # The relevant translations for area and word from the DB.
+    # search_results
+
+    # Which local map the user chose
+    # corresponding_map
+
+    # The file location of that map
+    # map_file
+
+    case area
+    when "Europe"
+      search_results = Translation.find_all_translations_by_area_europe_map(area, word)
+      corresponding_map = BaseEuropeMapInfo
+      map_file = File.open("#{Rails.root.to_s}/public/my_europe_template.svg")
+    when "Europe small"
+      search_results = Translation.find_all_translations_by_area_europe_map_small(area, word)
+      corresponding_map = BaseEuropeSmallMapInfo
+      map_file = File.open("#{Rails.root.to_s}/public/my_europe_small.svg")
+    when "Caucasus", "Middle East", "South Asia", "Middle East Bronze Age"
+      puts "Add me"
+    else
+      puts "No match"
+    end
+
+    # new array of just the language abbreviations from the above search.
+    search_results_lang_array = search_results.map { |result| result.abbreviation }.sort
+
+    # new array of just the language abbreviations from the corresponding map info array.
+    map_languages_array = corresponding_map.map { |lang| lang[:abbreviation] }
+
+    # new array of just the colors from the corresponding map info array.
+    europe_map_color_codes_array = corresponding_map.map { |lang| lang[:color] }
+
+    # the array of final results
     result_array = []
+    # => [
+    #  {:abbreviation=>"ar", :translation=>"جَزَر - jazar", :index=>0, :color=>"ffffb1"},
+    #  {:abbreviation=>"mt", :translation=>"zunnarija", :index=>1, :color=>"a0892c"},
+    #  {:abbreviation=>"lt", :translation=>"morka", :index=>2, :color=>"e9afdd"},
+    #  {:abbreviation=>"lv", :translation=>"burkāns", :index=>3, :color=>"de87cd"},
+    #  {:abbreviation=>"ru", :translation=>"морко́вь - morkóvʹ", :index=>4, :color=>"72ff00"},
+    #  {:abbreviation=>"uk", :translation=>"мо́рква - mórkva", :index=>4, :color=>"72ff00", :family=>"Proto-Slavic"},
+    #  ...]
 
     # the array that etymologies are checked against to see if they are shared or not.
     etymology_array = []
@@ -96,14 +201,17 @@ class CreateEtymologyMapService
     # :languages=>["ga", "gd"],
     # :color=>"fd6d3c"},
     # :family=>"Proto-Celtic"}]
+    # ...]
 
     languages_with_an_ety = []
+    #  => ["ar", "mt", ...]
+
     array_counter = 0
 
     # loop over the map and find every language abbreviation on it.
-    map_file = File.open("#{Rails.root.to_s}/public/my_europe_template.svg")
     map_code = map_file.read
-    map_languages = map_code.scan(/[$][a-z]{2,3}/mi).sort.map { |x| x.gsub(/[$]/i, "") }
+    scanned_map_languages = map_code.scan(/[$][a-z]{2,3}/mi).sort.map { |x| x.gsub(/[$]/i, "") }
+    #  => ["ab", "ar", ...]
 
     # Matching Logic
     # loop over search_results
@@ -125,12 +233,12 @@ class CreateEtymologyMapService
 
     search_results.each do |result|
 
-      # ignore search_results that are not on this map
-      if !map_languages.include?(result.abbreviation)
+      # ignore search_results that are not on this corresponding map
+      if !scanned_map_languages.include?(result.abbreviation)
         next
       end
 
-      # ignore search_results with no etymology
+      # ignore search_results entries with no etymology
       if result.etymology.nil? || result.etymology.length.zero?
         next
       end
@@ -149,7 +257,7 @@ class CreateEtymologyMapService
       family_matched_to_ety = false
 
       # Words that confuse the match
-      remove_words = ["a", "an", "all", "already", "alternant", "being", "borrowed", "borrowing", "both", "by", "change", "classical", "conflation", "derivative", "derived", "despite", "deviation", "diminutive", "early", "either", "ending", "eventually", "fact", "feminine", "form", "hypothetical", "in", "inherited", "is", "itself", "late", "later", "learned", "less", "likely", "literary", "masculine", "medieval", "metathesis", "modification", "of", "or", "origin", "plural", "probably", "prothesis", "reborrowing", "reformation", "regularised", "regularized", "root", "semi-learned", "shortened", "sonorized", "taken", "the", "through", "ultimately", "uncertain", "variant", "verner", "via", "voiced", "which", "with"]
+      remove_words = ["a", "an", "all", "already", "alternant", "alteration", "being", "borrowed", "borrowing", "both", "by", "change", "classical", "conflation", "derivative", "derived", "despite", "deviation", "diminutive", "early", "either", "ending", "eventually", "fact", "feminine", "form", "hypothetical", "in", "inherited", "is", "itself", "late", "later", "learned", "less", "likely", "literary", "masculine", "medieval", "metathesis", "modification", "of", "or", "origin", "plural", "probably", "prothesis", "reborrowing", "reformation", "regularised", "regularized", "root", "semi-learned", "shortened", "sonorized", "taken", "the", "through", "ultimately", "uncertain", "variant", "verner", "via", "voiced", "which", "with"]
 
       # Prefer "Latin" instead of "Vulgar Latin".
       # Account for "from Vulgar Latin "xe", from Latin "x" confusion.
@@ -200,8 +308,8 @@ class CreateEtymologyMapService
         # (item && item[:etymology].parameterize.include?(matching_etymology.parameterize))
       end
 
-      # if result.etymology IS null/nil, append nil as the index and blank as color.
-      # NOTHING goes into the etymology_array. bc no ety to begin with
+      # if result.etymology IS null/nil, append nil as the index and blank its color.
+      # NOTHING goes into the etymology_array. because no ety to begin with
       if result.etymology.nil? || result.etymology == "Null"
         edited_result = romanization_helper(result)[0].to_h
         edited_result[:index] = nil
@@ -215,8 +323,8 @@ class CreateEtymologyMapService
 
         # set default color to missing. If it later is found, use found_color
         found_color = blank_color
-        if europe_map_languages_array.find_index(result[:abbreviation])
-          found_color = europe_map_color_codes_array[europe_map_languages_array.find_index(result[:abbreviation])]
+        if map_languages_array.find_index(result[:abbreviation])
+          found_color = europe_map_color_codes_array[map_languages_array.find_index(result[:abbreviation])]
         end
 
         # push the etymology, language, and color into the etymology_array
@@ -271,7 +379,7 @@ class CreateEtymologyMapService
 
     # remove unused langs $abc from map and color it blank
     # remove unused regional langs $abc and color it to larger lang (fr, eng, it)
-    unused_map_languages = map_languages - languages_with_an_ety
+    unused_map_languages = scanned_map_languages - languages_with_an_ety
 
     for unused_language in unused_map_languages
 
@@ -279,7 +387,7 @@ class CreateEtymologyMapService
       map_code = map_code.sub("$" + unused_language, "")
 
       # find the corresponding color
-      color_from_map = europe_map_color_codes_array[europe_map_languages_array.find_index(unused_language)]
+      color_from_map = europe_map_color_codes_array[map_languages_array.find_index(unused_language)]
 
       # change the color.
       if ["pms", "lij", "vnc", "nap", "scn", "sc"].include?(unused_language) && !italian_color.nil? && italian_color != blank_color
@@ -301,8 +409,8 @@ class CreateEtymologyMapService
 
       # change the result color on the map
       color_from_map = blank_color
-      if europe_map_languages_array.include?(language[:abbreviation])
-        color_from_map = europe_map_color_codes_array[europe_map_languages_array.find_index(language[:abbreviation])]
+      if map_languages_array.include?(language[:abbreviation])
+        color_from_map = europe_map_color_codes_array[map_languages_array.find_index(language[:abbreviation])]
       end
       map_code = map_code.gsub("#" + color_from_map, "#" + language[:color])
     end
@@ -311,13 +419,10 @@ class CreateEtymologyMapService
 
     pp etymology_array.sort { |a, b| a[:family] <=> b[:family] }
 
-    # On map, but no translation in DB.
-    unused_search_results = (map_languages - search_results_lang_array).sort
+    # Languages scanned from map, but no translation in DB.
+    unused_map_languages = (scanned_map_languages - search_results_lang_array).sort
 
-    # Translation in DB, but not on map.
-    unused_map_languages2 = (search_results_lang_array - map_languages).sort
-
-    create_logs(search_results, word, area, map_languages, unused_map_languages, unused_search_results, unused_map_languages2, languages_with_an_ety, etymology_array, t1)
+    create_logs(word, area, search_results_lang_array,  scanned_map_languages, unused_map_languages, languages_with_an_ety, etymology_array, t1)
     send_map(map_code)
   end
 
@@ -339,26 +444,23 @@ class CreateEtymologyMapService
     end
   end
 
-  def self.create_logs(search_results, word, area, map_languages, unused_map_languages, unused_search_results, unused_map_languages2, languages_with_an_ety, etymology_array, t1)
+  def self.create_logs(word, area, search_results_lang_array, scanned_map_languages, unused_map_languages, languages_with_an_ety, etymology_array, t1)
+
     puts "\n"
-    puts "#{search_results.length} matching languages in the DB for the word: #{word.upcase} in: #{area}"
-    puts "#{languages_with_an_ety.length} languages in DB with an etymology"
-    puts "#{map_languages.length} languages on the map"
-    puts "#{unused_map_languages.length} unused languages(on map, in DB, but no etymology)"
+    puts "#{scanned_map_languages.length} languages on the #{area} map."
+    puts "#{search_results_lang_array.length} matching translations in the DB for the word: #{word.upcase} in the area: #{area.upcase}."
+    puts "#{unused_map_languages.length} unused translations (on map, but no translation in DB)"
     print unused_map_languages
     puts "\n"
-    puts "#{unused_search_results.length} unused languages(on map, but not in DB)"
-    print unused_search_results
     puts "\n"
 
-    if unused_map_languages2.length > 0
-      print unused_map_languages2
-    end
+    puts "#{languages_with_an_ety.length} languages in DB with an etymology."
+    puts "#{search_results_lang_array.length - languages_with_an_ety.length} languages on map, in db, but no etymology:"
+    print search_results_lang_array - languages_with_an_ety
     puts "\n"
 
+    puts "\n"
     puts "#{etymology_array.length} <== unique etymologies"
-    # puts "#{(My_europe_svg.length - map_languages.length)} languages missing between My_europe_svg and map_languages:"
-    # puts "They are: #{My_europe_svg - map_languages} languages"
     puts "\n"
     puts "computed in #{Time.now - t1} seconds."
     puts "\n"
