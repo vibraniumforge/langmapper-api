@@ -355,11 +355,12 @@ Word.create({ word_name: "mulberry", definition: "", emoji: "", category: "Berri
 Word.create({ word_name: "honey", definition: "", emoji: "🍯", category: "Agricultural Products" })
 Word.create({ word_name: "milk", definition: "", emoji: "🥛", category: "Agricultural Products" })
 Word.create({ word_name: "egg", definition: "", emoji: "🥚", category: "Agricultural Products" })
-Word.create({ word_name: "wool", definition: "", emoji: "🐑➕✂️", category: "Agricultural Products" })
+Word.create({ word_name: "wool", definition: "", emoji: "🐑➕💈", category: "Agricultural Products" })
 
 Word.create({ word_name: "beer", definition: "", emoji: "🍺", category: "Refined Agricultural Products" })
 Word.create({ word_name: "wine", definition: "", emoji: "🍷", category: "Refined Agricultural Products" })
 Word.create({ word_name: "bread", definition: "", emoji: "🍞", category: "Refined Agricultural Products" })
+Word.create({ word_name: "butter", definition: "", emoji: "🧈", category: "Refined Agricultural Products" })
 Word.create({ word_name: "cheese", definition: "", emoji: "🧀", category: "Refined Agricultural Products" })
 
 Word.create({ word_name: "tree", definition: "", emoji: "🌳", category: "Plants" })
@@ -368,7 +369,7 @@ Word.create({ word_name: "rose", definition: "", emoji: "🌹", category: "Plant
 Word.create({ word_name: "grass", definition: "", emoji: "", category: "Plants" })
 Word.create({ word_name: "forest", definition: "", emoji: "", category: "Plants" })
 Word.create({ word_name: "leaf", definition: "", emoji: "🍁", category: "Plants" })
-# Word.create({ word_name: "seed", definition: "", emoji: "", category: "Plants" })
+Word.create({ word_name: "seed", definition: "", emoji: "", category: "Plants" })
 Word.create({ word_name: "vine", definition: "", emoji: "", category: "Plants" })
 Word.create({ word_name: "mushroom", definition: "", emoji: "🍄", category: "Plants" })
 
@@ -450,16 +451,17 @@ Word.create({ word_name: "volcano", definition: "", emoji: "🌋", category: "Ge
 Word.create({ word_name: "wheel", definition: "", emoji: "🛞", category: "Technology" })
 Word.create({ word_name: "sail", definition: "", emoji: "", category: "Technology" })
 Word.create({ word_name: "boat", definition: "", emoji: "⛵️", category: "Technology" })
+Word.create({ word_name: "chariot", definition: "", emoji: "", category: "Technology" })
+
 Word.create({ word_name: "oven", definition: "", emoji: "", category: "Technology" })
 Word.create({ word_name: "fire", definition: "", emoji: "🔥", category: "Technology" })
+Word.create({ word_name: "candle", definition: "", emoji: "🕯️", category: "Technology" })
 Word.create({ word_name: "anvil", definition: "", emoji: "", category: "Technology" })
 Word.create({ word_name: "hammer", definition: "", emoji: "🔨", category: "Technology" })
 Word.create({ word_name: "yoke", definition: "", emoji: "", category: "Technology" })
-Word.create({ word_name: "candle", definition: "", emoji: "🕯️", category: "Technology" })
 Word.create({ word_name: "shoe", definition: "", emoji: "👟", category: "Technology" })
 Word.create({ word_name: "key", definition: "", emoji: "🔑", category: "Technology" })
 Word.create({ word_name: "money", definition: "", emoji: "💰", category: "Technology" })
-Word.create({ word_name: "chariot", definition: "", emoji: "", category: "Technology" })
 Word.create({ word_name: "umbrella", definition: "", emoji: "☂️", category: "Technology" })
 
 Word.create({ word_name: "thread", definition: "", emoji: "🧵", category: "Textile Technology" })
