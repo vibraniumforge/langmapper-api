@@ -4,9 +4,6 @@ class Word < ApplicationRecord
 
   validates :word_name, presence: true, uniqueness: true
 
-  def self.all_word_names
-    Word.select("words.word_name, words.id").order(id: :desc)
-  end
 
   def self.words_count
     Word.count
