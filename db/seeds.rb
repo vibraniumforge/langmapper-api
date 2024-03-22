@@ -431,7 +431,8 @@ Word.create({ word_name: "night", definition: "", emoji: "✨", category: "Time 
 Word.create({ word_name: "dusk", definition: "", emoji: "", category: "Time of Day" })
 
 Word.create({ word_name: "winter", definition: "", emoji: "⛄️", category: "Seasons" })
-Word.create({ word_name: "summer", definition: "", emoji: "", category: "Seasons" })
+Word.create({ word_name: "spring", definition: "", emoji: "🌱", category: "Seasons" })
+Word.create({ word_name: "summer", definition: "", emoji: "🌞", category: "Seasons" })
 Word.create({ word_name: "autumn", definition: "", emoji: "🍂", category: "Seasons" })
 
 Word.create({ word_name: "sun", definition: "", emoji: "☀️", category: "Astronomy" })
@@ -471,7 +472,6 @@ Word.create({ word_name: "loom", definition: "", emoji: "", category: "Textile T
 
 Word.create({ word_name: "cloth", definition: "", emoji: "", category: "Textiles" })
 Word.create({ word_name: "silk", definition: "", emoji: "", category: "Textiles" })
-Word.create({ word_name: "cotton", definition: "", emoji: "", category: "Textiles" })
 
 Word.create({ word_name: "shield", definition: "", emoji: "🛡️", category: "Military" })
 Word.create({ word_name: "sword", definition: "", emoji: "🗡️", category: "Military" })
@@ -492,8 +492,8 @@ Word.create({ word_name: "book", definition: "", emoji: "📘", category: "Cultu
 
 Word.create({ word_name: "bible", definition: "", emoji: "", category: "Christianity" })
 Word.create({ word_name: "church", definition: "", emoji: "⛪️", category: "Christianity" })
-Word.create({ word_name: "christmas", definition: "", emoji: "", category: "Christianity" })
-Word.create({ word_name: "easter", definition: "", emoji: "", category: "Christianity" })
+Word.create({ word_name: "Christmas", definition: "", emoji: "", category: "Christianity" })
+Word.create({ word_name: "Easter", definition: "", emoji: "", category: "Christianity" })
 Word.create({ word_name: "bishop", definition: "", emoji: "♝", category: "Christianity" })
 
 Word.create({ word_name: "Finland", definition: "", emoji: "🇫🇮", category: "Countries" })
