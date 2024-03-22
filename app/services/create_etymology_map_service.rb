@@ -425,9 +425,9 @@ class CreateEtymologyMapService
   end
 
   def self.send_map(map_code, map_file)
-    map_file_copy = File.basename(map_file, ".svg") + "_copy.svg"
-    FileUtils.copy_entry(map_file, map_file_copy, preserve = false, dereference = false, remove_destination = true)
-    the_new_map = open(map_file_copy, "w")
+    map_file_basename_copy = File.basename(map_file, ".svg") + "_copy.svg"
+    FileUtils.copy_entry("public/#{File.basename(map_file)}", "public/#{map_file_basename_copy}", preserve = false, dereference = false, remove_destination = true)
+    the_new_map = open("public/#{map_file_basename_copy}", "w")
     the_new_map.write(map_code)
     the_new_map
     # send_file the_new_map, disposition: :inline
