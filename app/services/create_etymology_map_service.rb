@@ -146,9 +146,6 @@ class CreateEtymologyMapService
     blank_color = "ffffff"
 
     # logic to switch by input area
-    #
-    #
-
 
     # The relevant translations for area and word from the DB.
     # search_results
@@ -417,18 +414,20 @@ class CreateEtymologyMapService
 
     map_file.close
 
+    puts "\n"
     pp etymology_array.sort { |a, b| a[:family] <=> b[:family] }
 
     # Languages scanned from map, but no translation in DB.
     unused_map_languages = (scanned_map_languages - search_results_lang_array).sort
 
     create_logs(word, area, search_results_lang_array,  scanned_map_languages, unused_map_languages, languages_with_an_ety, etymology_array, t1)
-    send_map(map_code)
+    send_map(map_code, map_file)
   end
 
-  def self.send_map(map_code)
-    FileUtils.copy_entry("public/my_europe_template.svg", "public/my_europe_template_copy.svg", preserve = false, dereference = false, remove_destination = true)
-    the_new_map = open("public/my_europe_template_copy.svg", "w")
+  def self.send_map(map_code, map_file)
+    map_file_copy = File.basename(map_file, ".svg") + "_copy.svg"
+    FileUtils.copy_entry(map_file, map_file_copy, preserve = false, dereference = false, remove_destination = true)
+    the_new_map = open(map_file_copy, "w")
     the_new_map.write(map_code)
     the_new_map
     # send_file the_new_map, disposition: :inline
@@ -445,7 +444,6 @@ class CreateEtymologyMapService
   end
 
   def self.create_logs(word, area, search_results_lang_array, scanned_map_languages, unused_map_languages, languages_with_an_ety, etymology_array, t1)
-
     puts "\n"
     puts "#{scanned_map_languages.length} languages on the #{area} map."
     puts "#{search_results_lang_array.length} matching translations in the DB for the word: #{word.upcase} in the area: #{area.upcase}."
@@ -454,12 +452,12 @@ class CreateEtymologyMapService
     puts "\n"
     puts "\n"
 
-    puts "#{languages_with_an_ety.length} languages in DB with an etymology."
-    puts "#{search_results_lang_array.length - languages_with_an_ety.length} languages on map, in db, but no etymology:"
+    puts "#{languages_with_an_ety.length} translations in the DB with an etymology."
+    puts "#{search_results_lang_array.length - languages_with_an_ety.length} translations on the map, in the db, but no etymology:"
     print search_results_lang_array - languages_with_an_ety
     puts "\n"
-
     puts "\n"
+
     puts "#{etymology_array.length} <== unique etymologies"
     puts "\n"
     puts "computed in #{Time.now - t1} seconds."
