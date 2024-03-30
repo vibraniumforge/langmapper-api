@@ -294,6 +294,7 @@ Word.create({ word_name: "beaver", definition: "", emoji: "🦫", category: "Mam
 Word.create({ word_name: "weasel", definition: "", emoji: "", category: "Mammals" })
 Word.create({ word_name: "hedgehog", definition: "", emoji: "🦔", category: "Mammals" })
 Word.create({ word_name: "wolverine", definition: "", emoji: "", category: "Mammals" })
+Word.create({ word_name: "bat", definition: "", emoji: "🦇", category: "Mammals" })
 
 Word.create({ word_name: "bird", definition: "", emoji: "🐣", category: "Birds" })
 Word.create({ word_name: "feather", definition: "", emoji: "🪶", category: "Birds" })
@@ -338,10 +339,10 @@ Word.create({ word_name: "olive", definition: "", emoji: "🫒", category: "Food
 Word.create({ word_name: "grape", definition: "", emoji: "🍇", category: "Food" })
 Word.create({ word_name: "peanut", definition: "", emoji: "🥜", category: "Food" })
 Word.create({ word_name: "cherry", definition: "", emoji: "🍒", category: "Food" })
-Word.create({ word_name: "garlic", definition: "", emoji: "🍒", category: "Food" })
+Word.create({ word_name: "garlic", definition: "", emoji: "🧄", category: "Food" })
 
 Word.create({ word_name: "lemon", definition: "", emoji: "🍋", category: "Citrus" })
-Word.create({ word_name: "lime", definition: "", emoji: "", category: "Citrus" })
+Word.create({ word_name: "lime", definition: "", emoji: "🟢", category: "Citrus" })
 Word.create({ word_name: "orange", definition: "", emoji: "🟠", category: "Citrus" })
 Word.create({ word_name: "tangerine", definition: "", emoji: "🍊", category: "Citrus" })
 Word.create({ word_name: "grapefruit", definition: "", emoji: "", category: "Citrus" })
