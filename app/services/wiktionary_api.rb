@@ -108,7 +108,7 @@ class WiktionaryApi
     correct_index = 0
     # specific exceptions for certain words
     case chosen_word
-    when "grapefruit", "blueberry", "mulberry", "orange", "raspberry", "loom", "seed"
+    when "grapefruit", "blueberry", "mulberry", "orange", "raspberry", "loom", "seed", "spring"
       correct_index = 1
     when "lime"
       correct_index = 6
